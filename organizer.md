@@ -531,3 +531,91 @@ Create a clean, scrollable form layout with logically grouped sections.
 - **Post-Creation Routing**: Once the auction is created successfully:
   - Display a success toast/notification.
   - Redirect the organizer to the **Auction Details / Setup Dashboard** for this specific auction, where they can begin adding Teams and Players.
+
+---
+
+# Screen 7: Organizer Side — Manage Auction
+
+## 1. Overview
+
+The Manage Auction screen serves as the detailed control center for a specific auction event. 
+
+It provides organizers with a comprehensive header containing key auction details, quick actions to start or view the auction, and a multi-tabbed interface to manage various entities associated with the event (Teams, Players, Sponsors, etc.).
+
+---
+
+## 2. Screen Preview
+
+Create a detail-rich header with a sticky tabbed navigation below it.
+
+### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Auctions                                                                         │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   ( LOGO )    Auction Name: Premier League 2026          [ START AUCTION ]            │  │
+│  │               Auction Code: PL-2026-X8F                  [ VIEW AUCTION ]             │  │
+│  │               Date & Time: 15 Oct 2026, 10:00 AM                                      │  │
+│  │               Players Per Team: 15                                                    │  │
+│  │                                                                                       │  │
+│  │   Plan: Free          Live Link: [ Copy Link ]                                        │  │
+│  │   Views: 1.2K         [ Upgrade Now ]                                                 │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  [ Teams ]  [ Players ]  [ MVP ]  [ Sponsors ]  [ Link ]  [ About ]                         │
+│  ────────────────────────────────────────────────────────────────────────────────────────── │
+│                                                                                             │
+│   ( Tab Content Area - specific to the selected tab, e.g., list of teams )                  │
+│                                                                                             │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+## 3. Fields Table
+
+| Element Name | Type | Description | Visibility |
+| :--- | :--- | :--- | :--- |
+| Logo | Image | The uploaded logo for this specific tournament | Always visible |
+| Auction Name | Text (Display) | Name of the auction | Always visible |
+| Auction Code | Text (Display) | Unique identifier/code to join the auction | Always visible |
+| Date & Time | Text (Display) | Scheduled start date and time | Always visible |
+| Players Per Team | Text (Display) | Max allowed players per team | Always visible |
+| Plan & Views | Text (Display) | Current subscription plan and public views count | Always visible |
+| Start Auction | Primary Button | Triggers the live auction bidding screen | Always visible |
+| View Auction | Secondary Button | Previews the public-facing view of the auction | Always visible |
+| Live Link / Copy | Action Link | Copies the public URL to share with participants | Always visible |
+| Upgrade Now | Action Link | Prompt to upgrade the current plan (if applicable) | Visible if on lower plan |
+| Navigation Tabs | Tabs | Switches between internal management sections | Always visible |
+
+## 4. Validations
+
+- **Start Auction Button**:
+  - Should be disabled (or show a warning) if there are no teams or players added yet.
+  - Optionally, only enable if the current time is close to the `Date & Time` scheduled.
+- **Tabs**:
+  - The currently active tab must be visually distinct (e.g., underlined or highlighted).
+- **Live Link**:
+  - Must copy a valid, functioning URL to the user's clipboard upon clicking.
+
+## 5. Business Rules
+
+- **Header Data Fetching**: The data in the header is read-only on this screen and must be fetched directly from the Auction's configuration data.
+- **Tab Routing/State**:
+  - **Teams**: Manage (add/edit/delete) the franchise teams participating.
+  - **Players**: Manage the player pool, categorize them, and set base prices.
+  - **MVP**: Manage Most Valuable Player leaderboards or awards configurations.
+  - **Sponsors**: Add sponsor logos and details to display during the live auction.
+  - **Link**: Manage specific deep-links, invite codes, or sharing options.
+  - **About**: View or edit the description, rules, and venue details of the auction.
+- **Action 'Start Auction'**: 
+  - Clicking this initiates the WebSockets/Live Sync session. It changes the auction status to "Live" and routes the organizer to the Live Bidding Dashboard.
+- **Action 'View Auction'**:
+  - Opens a new browser tab showing the public view of the auction as a guest/spectator would see it.
+- **Upgrade Flow**: Clicking "Upgrade Now" redirects the organizer to the billing/subscription management page.
