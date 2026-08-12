@@ -426,3 +426,108 @@ Create a spacious, widget-based dashboard layout.
   - Clicking "Go to Auction" on a Live card redirects directly to the Live Auction Dashboard.
   - Clicking "View Details" on an Upcoming card redirects to that auction's setup/details page.
 - **Recent Activity**: The feed pulls logs from the organizer's active tournaments (e.g., player sold, team registered) and displays the most recent 5-10 entries.
+
+---
+
+# Screen 6: Organizer Side — Create Auction
+
+## 1. Overview
+
+The Create Auction Screen allows an organizer to configure and launch a new cricket auction tournament.
+
+This form captures all essential rules and metadata required to set up the bidding environment, including team budgets, bid increments, schedule, and visibility settings.
+
+---
+
+## 2. Screen Preview
+
+Create a clean, scrollable form layout with logically grouped sections.
+
+### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Dashboard                                                                        │
+│                                                                                             │
+│  Create New Auction                                                                         │
+│  Fill out the details below to set up your tournament.                                      │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────┐                                  │
+│  │                    ( Upload Logo )                    │                                  │
+│  │                    [ Camera Icon ]                    │                                  │
+│  └───────────────────────────────────────────────────────┘                                  │
+│                                                                                             │
+│  Auction Name                                   Venue                                       │
+│  ┌─────────────────────────────┐                ┌─────────────────────────────┐             │
+│  │ e.g., Premier League 2026   │                │ e.g., City Stadium          │             │
+│  └─────────────────────────────┘                └─────────────────────────────┘             │
+│                                                                                             │
+│  Auction Date                                   Auction Time                                │
+│  ┌─────────────────────────────┐                ┌─────────────────────────────┐             │
+│  │ DD/MM/YYYY           [📅]   │                │ HH:MM AM/PM          [🕒]   │             │
+│  └─────────────────────────────┘                └─────────────────────────────┘             │
+│                                                                                             │
+│  Balance Per Team                               Players Per Team                            │
+│  ┌─────────────────────────────┐                ┌─────────────────────────────┐             │
+│  │ e.g., 100,000               │                │ e.g., 15                    │             │
+│  └─────────────────────────────┘                └─────────────────────────────┘             │
+│                                                                                             │
+│  Minimum Bid                                    Bid Increase By                             │
+│  ┌─────────────────────────────┐                ┌─────────────────────────────┐             │
+│  │ e.g., 500                   │                │ e.g., 100                   │             │
+│  └─────────────────────────────┘                └─────────────────────────────┘             │
+│                                                                                             │
+│  Auction Visibility                                                                         │
+│  ( ) Public (Visible to everyone)                                                           │
+│  ( ) Private (Invite only)                                                                  │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────┐                                  │
+│  │                   CREATE AUCTION                       │                                  │
+│  └───────────────────────────────────────────────────────┘                                  │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+## 3. Fields Table
+
+| Field Name | Type | Description | Mandatory |
+| :--- | :--- | :--- | :--- |
+| Auction ID | Hidden (Auto) | Unique system-generated ID for backend tracking | Yes (Backend) |
+| Tournament Logo | Image/File | Logo for the tournament/auction | No |
+| Auction Name | Text | Name of the tournament or auction event | Yes |
+| Venue | Text | Location where the auction/tournament is held | Yes |
+| Auction Date | Date Picker | Scheduled date for the live auction | Yes |
+| Auction Time | Time Picker | Scheduled start time for the live auction | Yes |
+| Balance Per Team | Number | Total virtual money allocated to each team | Yes |
+| Players Per Team | Number | Maximum number of players a team can buy | Yes |
+| Minimum Bid | Number | Default starting base price for a player | Yes |
+| Bid Increase By | Number | Default incremental value for each new bid | Yes |
+| Auction Visibility | Radio Button | Sets if the auction is 'Public' or 'Private' | Yes |
+
+## 4. Validations
+
+- **Date and Time**: 
+  - Auction Date must be today or a future date.
+  - If Auction Date is today, Auction Time must be in the future.
+- **Numeric Fields (Balance, Min Bid, Bid Increase, Players)**:
+  - Must be greater than 0.
+  - Must not contain alphabets or special characters.
+- **Tournament Logo**:
+  - Valid image formats only (JPG, PNG, WebP).
+  - Max file size (e.g., 5MB).
+- **Auction Visibility**:
+  - A selection must be made (default can be 'Public').
+
+## 5. Business Rules
+
+- **Auction ID Generation**: Upon successful submission, the backend automatically generates a unique UUID or sequential ID for the `Auction ID` field (hidden from UI).
+- **Visibility Logic**:
+  - **Public**: The auction will be listed in global search results and accessible via a public URL.
+  - **Private**: The auction is hidden from global search and can only be accessed via a specific invite link or by manually adding teams/users.
+- **Financial Rules**: The backend must enforce that `Minimum Bid` is less than or equal to `Balance Per Team`.
+- **Post-Creation Routing**: Once the auction is created successfully:
+  - Display a success toast/notification.
+  - Redirect the organizer to the **Auction Details / Setup Dashboard** for this specific auction, where they can begin adding Teams and Players.
