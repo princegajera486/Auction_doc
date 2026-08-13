@@ -68,10 +68,10 @@ The beating heart of the website. It must immediately make the user feel the int
 - **Action Buttons**:
   - *Primary*: "Start your auction for free" (Large, solid Vivid Blue or Coral button with a soft, glowing drop-shadow).
   - *Secondary*: "Watch the demo" (Ghost button with a subtle gray background on hover and a 'Play' icon).
-- **Hero Mockup (The Climax)**: A hyper-realistic, frosted white glassmorphism UI mockup of the live bidding screen.
-  - *The Data*: Player name is "Apex Predator". Teams fighting are "The Alchemists" vs. "Vanguard Elite". 
-  - *The Action*: A massive countdown timer (00:03...) dominating the clean white card, with the numbers in a punchy, impactful color.
-  - *Animation*: The elegant heartbeat line in the background spikes sharply exactly when a new bid is rendered on the UI mockup.
+- **Hero Image (The Climax)**: A stunning, high-quality 3D image of a live auction in progress.
+  - *The Visual*: A dramatic 3D scene showing bids actively raising (e.g., floating numbers ticking upward, a high-tech auction podium, or dynamic bid indicators).
+  - *Note*: An external, pre-rendered 3D image will be sourced and placed here to serve as the visual anchor.
+  - *Animation*: The elegant heartbeat line in the background spikes sharply behind this 3D image.
 
 ### 5. Screen Preview
 ```text
@@ -88,14 +88,14 @@ The beating heart of the website. It must immediately make the user feel the int
            /^\       /^\       /^\       /^\       /^\       /^\
    _______/   \_____/   \_____/   \_____/   \_____/   \_____/   \_______
 
-          +------------------------------------------------------+
-          |                                                      |
-          |  [Photo] APEX PREDATOR                 TIMER: 00:03  |
-          |                                                      |
-          |  The Alchemists             VS       Vanguard Elite  |
-          |  CURRENT BID: ₹ 4.5M                 ₹ 4.8M          |
-          |                                                      |
-          +------------------------------------------------------+
+          +-------------------------------------------------------------+
+          |                                                             |
+          |                                                             |
+          |         [ 3D AUCTION IMAGE: BIDS ACTIVELY RAISING ]         |
+          |           (High-quality pre-rendered 3D asset)              |
+          |                                                             |
+          |                                                             |
+          +-------------------------------------------------------------+
 --------------------------------------------------------------------------------
 ```
 
@@ -119,7 +119,26 @@ Connect with the organizer's pain points. Visually contrast the stress of manual
   - Text: "Stressful calculations, disputed bids, and messy team squads."
 - **Right Column (The New Way)**: 
   - Visual: Your clean, automated, beautiful software interface. Bright, vibrant colors.
-  - Text: "Automated purse math, instant TV updates, and beautiful digital squads."
+  - Text: "Automated purse math, instant Live Links, and beautiful digital squads."
+
+### 4. Screen Preview
+```text
+--------------------------------------------------------------------------------
+                     [ THE OLD WAY ]                [ THE NEW WAY ]
+
+                  (Muted, Messy Graphics)       (Vibrant, Clean Graphics)
+                 +-----------------------+     +-----------------------+
+                 | \  | /                |     |                       |
+                 | - PAPER & PENS -      |     |  [ CRICKBID UI ]      |
+                 | /  | \                |     |  ✓ Auto-Purse Math    |
+                 |  CALCULATOR ERRORS    |     |  ✓ Live Link          |
+                 |  MESSY SQUADS         |     |  ✓ Digital Squads     |
+                 +-----------------------+     +-----------------------+
+
+                   "Stressful math &            "Automated, instant,
+                   disputed bids."              and beautiful."
+--------------------------------------------------------------------------------
+```
 
 ---
 
