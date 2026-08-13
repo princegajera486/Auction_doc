@@ -942,3 +942,204 @@ A detailed dashboard-style layout specific to the selected team.
 - **Team Balance History**: Every time a player is sold to this team, a ledger entry must be created recording the timestamp, the player bought, and the exact points deducted.
 - **Squad Poster Generation**: The system dynamically combines the Team Logo, Player Photo, and Player Name into predefined poster templates that the organizer can download and share on social media.
 - **T-Shirt Detail Export**: This specific report must pull the T-shirt sizes (if collected during player registration) for all players in the `Sold Player List`.
+
+---
+
+## 7.2 Internal Section — Players
+
+This section contains all the views and functionalities related to managing the pool of players available for the auction.
+
+### Screen 7.2.1: Player List Table
+
+#### 1. Overview
+
+The Player List Table is the default view when the organizer clicks on the "Players" tab in the Manage Auction screen.
+
+It provides a tabular overview of all players registered for the current auction. Organizers can quickly review player details (like category and age), and perform actions such as viewing full profiles, editing details, or removing players from the auction pool.
+
+---
+
+#### 2. Screen Preview
+
+The full layout with the `Players` tab selected and a data table displaying player records.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Auctions                                                                         │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   ( LOGO )    Auction Name: Premier League 2026          [ START AUCTION ]            │  │
+│  │               Auction Code: PL-2026-X8F                  [ VIEW AUCTION ]             │  │
+│  │               Date & Time: 15 Oct 2026, 10:00 AM                                      │  │
+│  │               Players Per Team: 15                                                    │  │
+│  │                                                                                       │  │
+│  │   Plan: Free          Live Link: [ Copy Link ]                                        │  │
+│  │   Views: 1.2K         [ Upgrade Now ]                                                 │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  [ Teams ]  [ ━━ Players ━━ ]  [ MVP ]  [ Sponsors ]  [ Link ]  [ About ]                   │
+│  ────────────────────────────────────────────────────────────────────────────────────────── │
+│                                                                                             │
+│     Players (120)                                      [ + ADD PLAYER ]                     │
+│                                                                                             │
+│     ┌────┬────────────────────────┬─────────────┬─────┬─────────────┬─────────┐             │
+│     │ No │ Player Photo & Name    │ Category    │ Age │ Phone No.   │ Actions │             │
+│     ├────┼────────────────────────┼─────────────┼─────┼─────────────┼─────────┤             │
+│     │ 1  │ (PHOTO) Virat Kohli    │ Batsman     │ 35  │ 9876543210  │ 👁 ✏️ 🗑️ │             │
+│     ├────┼────────────────────────┼─────────────┼─────┼─────────────┼─────────┤             │
+│     │ 2  │ (PHOTO) Jasprit B.     │ Bowler      │ 30  │ 9123456789  │ 👁 ✏️ 🗑️ │             │
+│     ├────┼────────────────────────┼─────────────┼─────┼─────────────┼─────────┤             │
+│     │ 3  │ (PHOTO) Ben Stokes     │ All-Rounder │ 32  │ 9988776655  │ 👁 ✏️ 🗑️ │             │
+│     └────┴────────────────────────┴─────────────┴─────┴─────────────┴─────────┘             │
+│                                                                                             │
+│     Showing 1 to 3 of 120 Players                                                           │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Column Name | Type | Description | Visibility |
+| :--- | :--- | :--- | :--- |
+| No | Number | Sequential serial number for the list | Always visible |
+| Player Photo & Name | Text + Image | The player's profile photo followed by their full name | Always visible |
+| Category | Text | The playing role of the player (e.g., Batsman, Bowler) | Always visible |
+| Age | Number | The age of the player | Always visible |
+| Phone Number | Text/Number | Contact number of the player | Always visible |
+| Actions | Buttons/Icons | Quick actions: View (Eye), Edit (Pencil), Delete (Trash) | Always visible |
+
+#### 4. Validations
+
+- **Empty State**: 
+  - If no players are registered yet, the table should be hidden and replaced with an "Empty State" graphic and a prompt to "Add your first player".
+- **Delete Confirmation**:
+  - Clicking the Delete (Trash) icon must trigger a confirmation modal (e.g., "Are you sure you want to delete this player?").
+
+#### 5. Business Rules
+
+- **Sorting/Pagination**: The player list should be sortable (e.g., by Name, Category, or Age) and paginated if the list is long (e.g., 20 players per page).
+- **Routing**:
+  - Clicking **Add Player** redirects to a dedicated "Add Player" form (or modal, depending on the complexity of fields).
+  - Clicking **View (👁)** redirects to a detailed Player Profile page, showing their full stats, base price, and auction status (Sold/Unsold).
+  - Clicking **Edit (✏️)** opens an "Edit Player" form pre-filled with the player's current data.
+  - Clicking **Delete (🗑️)** removes the player from the auction pool. A player cannot be deleted if the auction is "Live" and they are currently on the block, or if they have already been sold to a team.
+
+---
+
+### Screen 7.2.2: Add Player
+
+#### 1. Overview
+
+The Add Player Screen is a comprehensive form used to register a new player into the auction pool. 
+
+To provide organizers with flexibility, this screen offers three distinct methods to onboard players:
+1. **Add from Form**: The default view where the organizer manually enters the player's details.
+2. **Add Via Link**: Generates a shareable registration link that players can fill out themselves.
+3. **Bulk Upload**: Allows uploading multiple players at once via an Excel/CSV template.
+
+---
+
+#### 2. Screen Preview
+
+A long scrolling form layout with the alternative onboarding methods anchored at the top.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Players                                                                          │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │   Add New Player                                                                      │  │
+│  │   [🔗 Add via link ]                                              [⬆️ Bulk Upload]    │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   ( Upload Photo )                                                                    │  │
+│  │   [ Camera Icon  ]                                                                    │  │
+│  │                                                                                       │  │
+│  │   Full Name *                         Mobile No *                                     │  │
+│  │   [ e.g., Virat Kohli              ]  [ e.g., 9876543210               ]              │  │
+│  │                                                                                       │  │
+│  │   Age *                               Category *                                      │  │
+│  │   [ e.g., 35                       ]  [ Select Category ▼              ]              │  │
+│  │                                                                                       │  │
+│  │   Batting Spec (Spec 1)               Bowling Spec (Spec 2)                           │  │
+│  │   [ Select Batting Style ▼         ]  [ Select Bowling Style ▼         ]              │  │
+│  │                                                                                       │  │
+│  │   Player Role (Spec 3)                Base Value *                                    │  │
+│  │   [ Select Role ▼                  ]  [ e.g., 20000                    ]              │  │
+│  │                                                                                       │  │
+│  │   Jersey Size                         Trouser Size                                    │  │
+│  │   [ Select Size (XS to 5XL) ▼      ]  [ Select Size (26 to 48) ▼       ]              │  │
+│  │                                                                                       │  │
+│  │   Jersey Name                         Jersey Number                                   │  │
+│  │   [ e.g., VIRAT                    ]  [ e.g., 18                       ]              │  │
+│  │                                                                                       │  │
+│  │   Matches                             Runs                                            │  │
+│  │   [ e.g., 250                      ]  [ e.g., 12000                    ]              │  │
+│  │                                                                                       │  │
+│  │   Wickets                             Status                                          │  │
+│  │   [ e.g., 4                        ]  [ Available ▼                    ]              │  │
+│  │                                                                                       │  │
+│  │   Extra Details                                                                       │  │
+│  │   [ Enter any additional info or notes...                                           ] │  │
+│  │                                                                                       │  │
+│  │                                 [ Cancel ]  [ SAVE PLAYER ]                           │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Field Name | Type | Description | Mandatory |
+| :--- | :--- | :--- | :--- |
+| Player Photo | Image/File | Profile picture of the player | No |
+| Full Name | Text | Complete name of the player | Yes |
+| Mobile No | Number/Text | Contact number | Yes |
+| Age | Number | Age in years | Yes |
+| Category | Dropdown | Broad category classification | Yes |
+| Specification 1 | Dropdown | Batting Style (e.g., Right Hand, Opener, Finisher, etc.) | No |
+| Specification 2 | Dropdown | Bowling Style (e.g., Right Arm Fast, Left Arm Orthodox, etc.) | No |
+| Specification 3 | Dropdown | Player Role (e.g., Pure Batsman, Wicket Keeper, Captain, etc.) | No |
+| Base Value | Number/Currency| The starting bid amount for the player | Yes |
+| Jersey Size | Dropdown | Size from XS to 5XL, or Other | No |
+| Trouser Size | Dropdown | Size from 26 to 48, or Other | No |
+| Jersey Name | Text | Name to be printed on the jersey | No |
+| Jersey Number| Number | Preferred jersey number | No |
+| Match | Number | Total matches played | No |
+| Run | Number | Total runs scored | No |
+| Wickets | Number | Total wickets taken | No |
+| Extra Details | Text Area | Any additional notes or background info | No |
+| Status | Dropdown | 'Available', 'Sold', or 'Unsold' | Yes (Default: Available) |
+
+#### 4. Validations
+
+- **Dropdown Values**:
+  - **Spec 1 (Batting)**: Right Hand Batsman, Left Hand Batsman, Opener, Top Order, Middle Order, Finisher, Anchor, Power Hitter, Other.
+  - **Spec 2 (Bowling)**: Right Arm Fast, Right Arm Fast-Medium, Right Arm Medium, Left Arm Fast, Left Arm Fast-Medium, Left Arm Medium, Right Arm Off Spin (Off Break), Right Arm Leg Spin (Leg Break), Left Arm Orthodox, Left Arm Chinaman (Unorthodox), Other.
+  - **Spec 3 (Role)**: Pure Batsman, Pure Bowler, All Rounder, Batting All Rounder, Bowling All Rounder, Wicket Keeper, Wicket Keeper Batsman, Captain, Vice Captain, Other.
+- **Mobile No**: Must follow a valid phone number regex pattern (e.g., 10 digits).
+- **Age, Base Value, Match, Run, Wickets**: Must be positive numeric values. Negative numbers are invalid.
+- **Jersey & Trouser Size**: Restricted to the defined dropdown ranges.
+
+#### 5. Business Rules
+
+- **Alternative Onboarding Actions**:
+  - Clicking `[🔗 Add via link ]` copies a unique, public-facing registration URL to the organizer's clipboard.
+  - Clicking `[⬆️ Bulk Upload]` opens a modal where the user can download a CSV template and upload a filled CSV to import multiple players simultaneously.
+- **Default Status**: When a player is manually added via this form, their `Status` automatically defaults to "Available" unless specifically overridden.
+- **Save Action**: Clicking `[ SAVE PLAYER ]` validates all mandatory fields. If successful, the player is added to the auction pool, and the user is redirected back to the Player List Table (Screen 7.2.1) with a success toast.
+- **Cancel Action**: Clicking `[ Cancel ]` redirects the user back to the Player List Table without saving any data.
+
