@@ -619,3 +619,326 @@ Create a detail-rich header with a sticky tabbed navigation below it.
 - **Action 'View Auction'**:
   - Opens a new browser tab showing the public view of the auction as a guest/spectator would see it.
 - **Upgrade Flow**: Clicking "Upgrade Now" redirects the organizer to the billing/subscription management page.
+
+---
+
+## 7.1 Internal Section — Teams
+
+This section contains all the views and functionalities related to managing franchise teams within the auction.
+
+### Screen 7.1.1: Team List Table
+
+#### 1. Overview
+
+The Team List Table is the default view when the organizer clicks on the "Teams" tab in the Manage Auction screen.
+
+It provides a tabular overview of all franchise teams registered for the current auction, displaying their essential details (like logo, name, and remaining balance), and providing quick action buttons to view, edit, or delete a team.
+
+---
+
+#### 2. Screen Preview
+
+A clean data table displaying the team records with an "Add Team" button on the top right.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Auctions                                                                         │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   ( LOGO )    Auction Name: Premier League 2026          [ START AUCTION ]            │  │
+│  │               Auction Code: PL-2026-X8F                  [ VIEW AUCTION ]             │  │
+│  │               Date & Time: 15 Oct 2026, 10:00 AM                                      │  │
+│  │               Players Per Team: 15                                                    │  │
+│  │                                                                                       │  │
+│  │   Plan: Free          Live Link: [ Copy Link ]                                        │  │
+│  │   Views: 1.2K         [ Upgrade Now ]                                                 │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  [ ━━ Teams ━━ ]  [ Players ]  [ MVP ]  [ Sponsors ]  [ Link ]  [ About ]                   │
+│  ────────────────────────────────────────────────────────────────────────────────────────── │
+│                                                                                             │
+│     Teams (8)                                        [ + ADD TEAM ]                         │
+│                                                                                             │
+│     ┌────┬────────────────────────┬─────────────┬─────────────┬─────────┐                   │
+│     │ No │ Team Logo & Name       │ Short Name  │ Balance     │ Actions │                   │
+│     ├────┼────────────────────────┼─────────────┼─────────────┼─────────┤                   │
+│     │ 1  │ (LOGO) Mumbai Indians  │ MI          │ $ 100,000   │ 👁 ✏️ 🗑️ │                   │
+│     ├────┼────────────────────────┼─────────────┼─────────────┼─────────┤                   │
+│     │ 2  │ (LOGO) Chennai S.K.    │ CSK         │ $ 95,000    │ 👁 ✏️ 🗑️ │                   │
+│     ├────┼────────────────────────┼─────────────┼─────────────┼─────────┤                   │
+│     │ 3  │ (LOGO) Royal C.B.      │ RCB         │ $ 100,000   │ 👁 ✏️ 🗑️ │                   │
+│     └────┴────────────────────────┴─────────────┴─────────────┴─────────┘                   │
+│                                                                                             │
+│     Showing 1 to 3 of 8 Teams                                                               │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Column Name | Type | Description | Visibility |
+| :--- | :--- | :--- | :--- |
+| No | Number | Sequential serial number for the list | Always visible |
+| Team Logo & Name | Text + Image | The franchise logo followed by the full team name | Always visible |
+| Short Name | Text | The abbreviation of the team (e.g., MI, CSK) | Always visible |
+| Balance | Currency | The current remaining purse/balance for the team | Always visible |
+| Actions | Buttons/Icons | Quick actions: View (Eye), Edit (Pencil), Delete (Trash) | Always visible |
+
+#### 4. Validations
+
+- **Empty State**: 
+  - If no teams are added yet, the table should be hidden and replaced with an "Empty State" graphic and a prompt to "Add your first team".
+- **Delete Confirmation**:
+  - Clicking the Delete (Trash) icon must trigger a confirmation modal (e.g., "Are you sure you want to delete this team?").
+
+#### 5. Business Rules
+
+- **Default Balance**: When a team is newly added and no players have been bought, their `Balance` must exactly match the `Balance Per Team` defined in the Auction settings.
+- **Routing**:
+  - Clicking **Add Team** opens the "Add Team" form or modal.
+  - Clicking **View (👁)** redirects to a detailed Team Profile page, showing their bought players and statistics.
+  - Clicking **Edit (✏️)** opens an "Edit Team" form pre-filled with the team's current data.
+  - Clicking **Delete (🗑️)** removes the team from the auction. A team cannot be deleted if the auction is currently "Live" or if they have already purchased players.
+
+---
+
+### Screen 7.1.2: Add Team (Modal)
+
+#### 1. Overview
+
+The Add Team Modal is a quick-entry popup form that allows the organizer to register a new franchise team for the auction.
+
+Because there are only three essential details required to create a team, a modal keeps the user in context on the Manage Auction page rather than redirecting them to a separate screen.
+
+---
+
+#### 2. Screen Preview
+
+The modal appears centered over a darkened, blurred background of the Team List Table.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  [Darkened Background / Overlay of the Team List Table]                 │
+│                                                                         │
+│      ┌───────────────────────────────────────────────────────────┐      │
+│      │                                                           │      │
+│      │   Add New Team                                      [ X ] │      │
+│      │   ─────────────────────────────────────────────────────   │      │
+│      │                                                           │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │                  ( Upload Logo )                  │   │      │
+│      │   │                  [ Camera Icon ]                  │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │   Team Name                                               │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │ e.g., Mumbai Indians                              │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │   Short Name                                              │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │ e.g., MI                                          │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │                                                           │      │
+│      │   [ Cancel ]                             [ ADD TEAM ]     │      │
+│      │                                                           │      │
+│      └───────────────────────────────────────────────────────────┘      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Field Name | Type | Description | Mandatory |
+| :--- | :--- | :--- | :--- |
+| Logo | Image/File | The franchise's official logo or emblem | No (can use placeholder) |
+| Team Name | Text | The full name of the franchise | Yes |
+| Short Name | Text | The abbreviation or acronym of the team name | Yes |
+
+#### 4. Validations
+
+- **Team Name**:
+  - Must not be empty.
+  - Must be unique within this specific auction (cannot have two teams with the exact same name).
+- **Short Name**:
+  - Must not be empty.
+  - Should ideally be restricted to 2-4 uppercase characters (e.g., MI, RCB).
+  - Must be unique within this specific auction.
+- **Logo**:
+  - Valid image formats only (JPG, PNG, WebP).
+  - Max file size (e.g., 2MB).
+
+#### 5. Business Rules
+
+- **Default State**: When the modal opens, all fields are empty.
+- **Save Action**: Clicking `[ ADD TEAM ]` validates the inputs, creates the team in the database, attaches it to the current Auction ID, and assigns the team an initial `Balance` equal to the auction's `Balance Per Team`.
+- **UI Update**: Upon successful save, the modal closes automatically, a success toast appears, and the Team List Table (Screen 7.1.1) refreshes to display the newly added team.
+- **Cancel Action**: Clicking `[ Cancel ]` or the `[ X ]` icon closes the modal without saving and discards any entered data.
+
+---
+
+### Screen 7.1.3: Edit Team (Modal)
+
+#### 1. Overview
+
+The Edit Team Modal is triggered when the organizer clicks the Edit (✏️) icon on a specific team in the Team List Table.
+
+It shares the exact same layout as the Add Team Modal, but the fields are pre-filled with the team's existing data, allowing the organizer to quickly update the team name, short name, or logo.
+
+---
+
+#### 2. Screen Preview
+
+The modal appears centered over a darkened background, showing pre-filled data.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  [Darkened Background / Overlay of the Team List Table]                 │
+│                                                                         │
+│      ┌───────────────────────────────────────────────────────────┐      │
+│      │                                                           │      │
+│      │   Edit Team                                         [ X ] │      │
+│      │   ─────────────────────────────────────────────────────   │      │
+│      │                                                           │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │                   ( Current Logo )                │   │      │
+│      │   │                   [ Change Logo ]                 │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │   Team Name                                               │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │ Mumbai Indians                                    │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │   Short Name                                              │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │ MI                                                │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │                                                           │      │
+│      │   [ Cancel ]                            [ SAVE CHANGES ]  │      │
+│      │                                                           │      │
+│      └───────────────────────────────────────────────────────────┘      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Field Name | Type | Description | Mandatory | Pre-filled |
+| :--- | :--- | :--- | :--- | :--- |
+| Logo | Image/File | The franchise's current logo | No | Yes (Existing image) |
+| Team Name | Text | The full name of the franchise | Yes | Yes (Existing name) |
+| Short Name | Text | The abbreviation or acronym of the team | Yes | Yes (Existing abbreviation) |
+
+#### 4. Validations
+
+- **Team Name**:
+  - Must not be empty.
+  - Must be unique within this specific auction (excluding the team's own current name).
+- **Short Name**:
+  - Must not be empty.
+  - Should ideally be restricted to 2-4 uppercase characters.
+  - Must be unique within this specific auction (excluding the team's own current short name).
+- **Logo**:
+  - Valid image formats only (JPG, PNG, WebP). Max file size (e.g., 2MB).
+
+#### 5. Business Rules
+
+- **Default State**: When the modal opens, it makes an API call (or uses locally cached state) to fetch and pre-fill the form with the team's existing data.
+- **Save Action**: Clicking `[ SAVE CHANGES ]` validates the inputs and updates the team's record in the database.
+- **UI Update**: Upon successful update, the modal closes automatically, a success toast appears (e.g., "Team updated successfully"), and the Team List Table refreshes to display the new information.
+- **Cancel Action**: Clicking `[ Cancel ]` or the `[ X ]` icon closes the modal without saving, discarding any modifications made.
+
+---
+
+### Screen 7.1.4: View Team Profile
+
+#### 1. Overview
+
+The View Team Profile screen is accessed by clicking the View (👁) icon on the Team List Table.
+
+It provides a comprehensive overview of a specific franchise. Organizers can track the team's financial health (KPIs), view the roster of players they have purchased, track their balance history, and export various reports or squad posters for social media.
+
+---
+
+#### 2. Screen Preview
+
+A detailed dashboard-style layout specific to the selected team.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Team List                                                                        │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │   ( LOGO )    Mumbai Indians (MI)                                                     │  │
+│  │                                                                                       │  │
+│  │   [ ⬇️ Excel Report ]  [ ⬇️ PDF Export ]  [ ⬇️ T-Shirt Excel ]  [ ⬇️ Balance Report ] │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  📊 KPIs                                                                                    │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐       │
+│  │ Total Points │ │ Used Points  │ │ Avail. Points│ │ Max Bid Pts. │ │ Total Players│       │
+│  │   100,000    │ │    45,000    │ │    55,000    │ │    40,000    │ │   5 / 15     │       │
+│  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘       │
+│  (Total Reserved Players: 2)                                                                │
+│                                                                                             │
+│  [ Sold Players ]  [ Balance History ]  [ Squad Poster ]                                    │
+│  ────────────────────────────────────────────────────────────────────────────────────────── │
+│                                                                                             │
+│   ┌────┬────────────────────────────┬─────────────┬───────────────┐                         │
+│   │ No │ Photo & Name               │ Phone       │ Sold Amount   │                         │
+│   ├────┼────────────────────────────┼─────────────┼───────────────┤                         │
+│   │ 1  │ (PHOTO) Virat Kohli        │ 9876543210  │ $ 25,000      │                         │
+│   ├────┼────────────────────────────┼─────────────┼───────────────┤                         │
+│   │ 2  │ (PHOTO) MS Dhoni           │ 9123456780  │ $ 20,000      │                         │
+│   └────┴────────────────────────────┴─────────────┴───────────────┘                         │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description | Visibility |
+| :--- | :--- | :--- | :--- |
+| Logo, Name & Short Name | Display Text/Image | Basic identity of the team | Always visible |
+| Export Buttons | Action Buttons | Downloads reports (Excel, PDF, T-Shirt Data, Balance) | Always visible |
+| KPIs (Points & Players) | Data Widgets | Real-time tracking of the team's budget and roster limits | Always visible |
+| Sold Player List | Data Table | List of players purchased by the team (No, Name, Phone, Amount) | Visible in Sold Players Tab |
+| Team Balance History | Data Log / Table | Chronological log of deductions/additions to the team's purse | Visible in Balance History Tab |
+| Squad Poster | Visual Grid/Gallery | Auto-generated promotional posters featuring the bought players | Visible in Squad Poster Tab |
+
+#### 4. Validations
+
+- **KPI Calculations**:
+  - `Available Points` must exactly equal `Total Points` - `Used Points`.
+  - `Max Bid Points` must be calculated dynamically: `Available Points` - ((`Min Players Required` - `Current Total Players`) * `Minimum Bid`).
+  - Total Players cannot exceed the max players allowed per team.
+- **Exports**:
+  - If no players are sold to the team yet, the Export buttons (like T-Shirt details) should generate an empty template or display a warning toast ("No data to export").
+
+#### 5. Business Rules
+
+- **Data Fetching**: All KPI and Player data on this screen must be fetched in real-time or synced via WebSockets if the auction is currently "Live".
+- **Team Balance History**: Every time a player is sold to this team, a ledger entry must be created recording the timestamp, the player bought, and the exact points deducted.
+- **Squad Poster Generation**: The system dynamically combines the Team Logo, Player Photo, and Player Name into predefined poster templates that the organizer can download and share on social media.
+- **T-Shirt Detail Export**: This specific report must pull the T-shirt sizes (if collected during player registration) for all players in the `Sold Player List`.
