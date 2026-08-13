@@ -142,22 +142,41 @@ Connect with the organizer's pain points. Visually contrast the stress of manual
 
 ---
 
-## 4. PROFESSIONAL TV PRESENTATION (THE WOW FACTOR)
+## 4. THE LIVE LINK EXPERIENCE (REAL-TIME VIEWING)
 
 ### 1. Component Goal
-Demonstrate how the software elevates the status of the tournament by providing a premium, broadcast-quality experience for the audience and team owners in the room.
+Showcase the power of the "Live Link." Clarify that this isn't a heavy video stream, but a lightweight, real-time web URL that organizers can share with anyone to follow the auction data (current bids, player stats, sold status) instantly on any device.
 
 ### 2. Layout & Structure (Figma Auto Layout Specs)
-- **Container**: Flexbox (Column), centered. Dark Mode theme.
-- **Background**: Deep rich dark color (e.g., `#0B0F19`) to simulate a dark auction room.
+- **Container**: Flexbox (Row or 2-column Grid), centered. Light, airy theme (`#F9FAFB`).
 - **Padding**: `100px` top and bottom.
 
 ### 3. Elements & Interactions
-- **Visual Mockup**: A large, edge-to-edge image of a TV or projector screen displaying the "Live Auction Mode". 
-- **Typography**: White text. 
-  - Headline: "Give them the IPL experience." 
-  - Subtext: "Project your auction onto the big screen. Complete with player stats, live bid tracking, and dramatic 'SOLD' animations."
-- **Effects**: Add a soft glow behind the TV mockup to make the screen "pop" off the dark background.
+- **Typography Block** (Left side): 
+  - Headline: "Share the thrill with a single link." 
+  - Subtext: "No app downloads. No video streaming delays. Just send your unique Live Link to players, team owners, and fans. They can watch the bids update instantly from their phones, anywhere in the world."
+  - *Interaction*: A visual URL bar (`yourwebsite.com/live/match-01`) with a "Copy Link" button beside it.
+- **Visual Mockup** (Right side): An isometric composition showing a Laptop (the organizer controlling the auction) and a Mobile Phone (a fan watching from home). Both screens show the exact same "Live" player card perfectly synchronized.
+
+### 4. Screen Preview
+```text
+--------------------------------------------------------------------------------
+   Share the thrill with a 
+   single link.                                   [ LAPTOP ]
+                                              +-----------------+
+   No app downloads. No video                 |  APEX PREDATOR  |
+   streaming delays. Just send                |  Current: ₹8.5M |
+   your unique Live Link to                   +-----------------+
+   players and fans.                                   \
+                                                        \  (Instant Sync)
+   [ yoursite.com/live/surat-pl ] [ COPY ]               \
+                                                    [ PHONE ]
+                                                   +---------+
+                                                   | APEX P. |
+                                                   | ₹8.5M   |
+                                                   +---------+
+--------------------------------------------------------------------------------
+```
 
 ---
 
