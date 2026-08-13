@@ -1,283 +1,240 @@
 # Cricket Auction Customer Website Components
 
+This document contains the structural and design requirements for the Cricket Auction SaaS Landing Page, optimized for a pre-launch product focusing on vision, solving pain points, and capturing early users.
+
 ## 1. NAVBAR / HEADER
 
-### 1. Overview
-The primary navigation bar at the top of the website. It provides global access to main pages, login/register entry points, and clear branding.
+### 1. Component Goal
+Provide intuitive navigation that builds immediate trust and funnels users toward the primary conversion action ("Start for Free"). It must feel premium, modern, and sticky.
+
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: Flexbox (Row), `justify-content: space-between`, `align-items: center`.
+- **Dimensions**: Width: 100%, Max Content Width: 1280px, Height: 80px.
+- **Padding**: `16px` top/bottom, `5%` left/right.
+- **Positioning**: Sticky top with `z-index: 50`.
+
+### 3. Styling & Typography
+- **Font Family**: Inter, Plus Jakarta Sans, or Outfit (Modern Sans-Serif).
+- **Background Theme**: Glassmorphism. `rgba(255, 255, 255, 0.75)` with Background Blur (`backdrop-filter: blur(16px)`).
+- **Border**: Subtle bottom hairline border (`1px solid rgba(0,0,0,0.05)`).
+- **Nav Links (Center)**: 15px font size, Medium (500) weight, Color: `#4B5563` (Slate Gray).
+
+### 4. Elements & Interactions
+- **Left Area (Brand)**: Sleek, high-contrast Logo.
+- **Center Area (Navigation)**: Links: *Features, How it Works, Pricing, FAQ*.
+  - *Hover State*: Text transitions to `#111827` (Dark Navy) with a crisp micro-animation (e.g., a tiny dot appearing below the active link).
+- **Right Area (Actions)**: 
+  - *Login Button*: Ghost/Text button. Font weight 600.
+  - *Create Auction CTA*: Solid Button. Background: `#0F172A` (Deep Navy) or a vibrant gradient. Text: "Start for Free". Padding: `12px 24px`. Border-radius: `8px` (or pill-shape).
+  - *CTA Hover State*: Slight scale-up (`scale: 1.02`) and soft glowing shadow (`box-shadow: 0 8px 16px rgba(15, 23, 42, 0.15)`).
+
+### 5. Screen Preview
+```text
+--------------------------------------------------------------------------------
+[ LOGO ]    Features   How it Works   Pricing   FAQ    [ Login ] [ START FOR FREE ]
+--------------------------------------------------------------------------------
+```
+
+### 6. Responsive Behavior (Mobile)
+- Collapse center links into a clean hamburger menu icon on the far right.
+- Maintain the Logo on the left.
+- If space permits, keep a smaller, icon-only version of the "Start for Free" CTA next to the hamburger menu.
+
+### 7. AI Generation Prompt
+"A premium, modern SaaS website navigation bar. Glassmorphism background with a slight blur. On the far left, a sleek minimalist logo. In the center, evenly spaced modern typography text links. On the far right, a clean login text link next to a prominent, deep navy solid button that says 'Start for Free'. High quality UI, clean aesthetic, Dribbble trending, spacing perfectly balanced."
+
+---
+
+## 2. HERO SECTION (THE HEARTBEAT)
+
+### 1. Component Goal
+The beating heart of the website. It must immediately make the user feel the intense adrenaline and drama of a high-stakes, broadcast-quality live auction.
+
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: Flexbox (Column), `align-items: center`, `text-align: center`.
+- **Dimensions**: Min-height: `90vh`, Width: 100%, `overflow: hidden`.
+- **Padding**: `120px` top, `0px` bottom (image bleeds off the bottom).
+
+### 3. Styling & Typography
+- **Theme**: Light & Soft Mode. Background is a creamy, ultra-light gray (`#FAFAFA`) or pure white, featuring a very soft, diffuse radial glow in the center (like a gentle pastel coral or electric blue).
+- **Headline**: Massive & cinematic (72px+), ExtraBold (900). Color: Deep Navy (`#0F172A`) for maximum high-contrast impact.
+- **Subheadline**: 22px, Medium (500), Color: `#6B7280` (Muted Slate). Max-width: 650px.
+- **Background Effect**: A sleek, elegant, animated ECG (heartbeat) line stretching across the background. Instead of aggressive red, it's a soft glowing coral (`#FF6B6B`) or vibrant cyan that spikes beautifully behind the mockup.
+
+### 4. Elements & Interactions
+- **Typography Block**: 
+  - Headline: "Where Every Bid is a Heartbeat."
+  - Subheadline: "Experience the adrenaline of a flawless, broadcast-quality auction. Silence the room and command the bidding war."
+- **Action Buttons**:
+  - *Primary*: "Start your auction for free" (Large, solid Vivid Blue or Coral button with a soft, glowing drop-shadow).
+  - *Secondary*: "Watch the demo" (Ghost button with a subtle gray background on hover and a 'Play' icon).
+- **Hero Mockup (The Climax)**: A hyper-realistic, frosted white glassmorphism UI mockup of the live bidding screen.
+  - *The Data*: Player name is "Apex Predator". Teams fighting are "The Alchemists" vs. "Vanguard Elite". 
+  - *The Action*: A massive countdown timer (00:03...) dominating the clean white card, with the numbers in a punchy, impactful color.
+  - *Animation*: The elegant heartbeat line in the background spikes sharply exactly when a new bid is rendered on the UI mockup.
+
+### 5. Screen Preview
+```text
+--------------------------------------------------------------------------------
+                         Where Every Bid 
+                         is a Heartbeat.
+                  
+      Experience the adrenaline of a flawless, broadcast-quality 
+           auction. Silence the room and command the bidding war.
+
+         [ START YOUR AUCTION FOR FREE ]   [ Watch the demo ]
+
+              -- soft glowing pastel coral heartbeat line --
+           /^\       /^\       /^\       /^\       /^\       /^\
+   _______/   \_____/   \_____/   \_____/   \_____/   \_____/   \_______
+
+          +------------------------------------------------------+
+          |                                                      |
+          |  [Photo] APEX PREDATOR                 TIMER: 00:03  |
+          |                                                      |
+          |  The Alchemists             VS       Vanguard Elite  |
+          |  CURRENT BID: ₹ 4.5M                 ₹ 4.8M          |
+          |                                                      |
+          +------------------------------------------------------+
+--------------------------------------------------------------------------------
+```
+
+### 6. AI Generation Prompt
+"A highly impactful, light and soft SaaS landing page hero section. Massive bold deep navy headline 'Where Every Bid is a Heartbeat'. In the clean white background, a sleek, soft glowing pastel coral ECG heartbeat monitor line. In the center, a hyper-realistic, bright 3D frosted white glassmorphism mockup of a live auction bidding screen showing a countdown timer and intense bidding war between fictional epic teams. Soft, elegant lighting, clean aesthetic, but highly dynamic and thrilling. Premium Dribbble UI design."
+
+---
+
+## 3. THE PAIN POINT (THE OLD WAY VS. THE NEW WAY)
 
-### 2. Importance
-Serves as the main orientation point for users. A clean header builds trust and quickly guides organizers to "Create Auction" and viewers to "Live Auctions".
+### 1. Component Goal
+Connect with the organizer's pain points. Visually contrast the stress of manual auctions against the ease of using CrickBid.
 
-### 3. Screen Preview
-------------------------------------------------
-[ LOGO ]    Features   Pricing   Live Auctions   [ LOGIN ] [ CREATE AUCTION ]
-------------------------------------------------
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: Flexbox (Row), 2 equally sized columns. `gap: 40px`.
+- **Dimensions**: Max Content Width: 1280px.
 
-### 4. Design Instructions
-- Layout: Flexbox with space-between. Left: Logo, Center: Nav Links, Right: Action Buttons.
-- Spacing: 24px padding top/bottom.
-- Typography: Semi-bold, 14px-16px sans-serif.
-- Colors: Background should be White or Very Light Gray with a subtle blur (glassmorphism) if sticky.
-- Buttons: "Create Auction" should be a solid primary color (Deep Navy). "Login" should be a ghost/outline button.
-- Responsive: Collapse links into a clean hamburger menu on mobile; keep Logo and "Create Auction" button visible.
+### 3. Elements & Interactions
+- **Left Column (The Old Way)**: 
+  - Visual: A messy graphic of crossed-out paper, calculators, and tangled spreadsheets. Muted, dull colors.
+  - Text: "Stressful calculations, disputed bids, and messy team squads."
+- **Right Column (The New Way)**: 
+  - Visual: Your clean, automated, beautiful software interface. Bright, vibrant colors.
+  - Text: "Automated purse math, instant TV updates, and beautiful digital squads."
 
-## 2. HERO SECTION
+---
 
-### 1. Overview
-The very first section a visitor sees. It combines a strong value proposition headline with a visual representation of the product in action.
+## 4. PROFESSIONAL TV PRESENTATION (THE WOW FACTOR)
 
-### 2. Importance
-This is the main conversion engine. It must immediately communicate that this is a professional tool for running live cricket auctions, capturing both organizers and casual viewers.
+### 1. Component Goal
+Demonstrate how the software elevates the status of the tournament by providing a premium, broadcast-quality experience for the audience and team owners in the room.
 
-### 3. Screen Preview
-------------------------------------------------
-                 RUN YOUR
-            CRICKET AUCTION
-               LIKE A PRO
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: Flexbox (Column), centered. Dark Mode theme.
+- **Background**: Deep rich dark color (e.g., `#0B0F19`) to simulate a dark auction room.
+- **Padding**: `100px` top and bottom.
 
-     Create • Manage • Bid • Build Squads
+### 3. Elements & Interactions
+- **Visual Mockup**: A large, edge-to-edge image of a TV or projector screen displaying the "Live Auction Mode". 
+- **Typography**: White text. 
+  - Headline: "Give them the IPL experience." 
+  - Subtext: "Project your auction onto the big screen. Complete with player stats, live bid tracking, and dramatic 'SOLD' animations."
+- **Effects**: Add a soft glow behind the TV mockup to make the screen "pop" off the dark background.
 
-      [ CREATE AUCTION ] [ WATCH LIVE ]
+---
 
-              [LIVE AUCTION UI MOCKUP]
-------------------------------------------------
+## 5. FEATURE SHOWCASE (BENTO BOX UI)
 
-### 4. Design Instructions
-- Layout: Single column centered on desktop (Headline -> Subtitle -> CTA -> Large Mockup blooming from bottom).
-- Typography: Massive, bold headline (64px+). Deep Navy color.
-- Images/Cards: Use a realistic, floating representation of a live player auction card with current bids and team logos. Add a subtle drop shadow to pop from the background.
-- Background: Clean white with a faint, abstract geometric pattern or a very soft, large radial gradient (Electric Blue to White).
-- Animation: Slide up and fade in for the UI Mockup on initial page load.
+### 1. Component Goal
+Highlight the core capabilities that save the organizer time, presented in a highly scannable, modern "Bento Box" grid layout.
 
-## 3. STATISTICS / TRUST METRICS
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: CSS Grid (or Figma Auto Layout wrapping), typically 3-4 distinct cards of varying sizes.
+- **Gap**: `24px`.
 
-### 1. Overview
-A horizontal bar or grid showcasing key platform numbers (e.g., "1,000+ Tournaments", "50,000+ Players").
+### 3. Elements
+- **Card 1 (Large)**: "Auto-Purse Calculation" - visual of a budget bar draining.
+- **Card 2 (Medium)**: "Real-Time Sync" - icons of a laptop and phone connected.
+- **Card 3 (Medium)**: "Instant Squad Exports" - visual of a PDF icon with team logos.
+- **Styling**: Cards have very light gray backgrounds (`#F8FAFC`), 16px border-radius, and a soft hover-lift effect.
 
-### 2. Importance
-Builds immediate credibility. Shows tournament organizers that the platform is robust, tested, and actively used by others.
+---
 
-### 3. Screen Preview
-------------------------------------------------
-  1,500+          10,000+          500k+
-Tournaments     Teams Created     Bids Placed
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: Horizontal flexbox with subtle dividers (1px solid light gray) between metrics.
-- Typography: Huge, bold numbers (Electric Blue or Cricket Green). Smaller, uppercase, subtle text for labels.
-- Spacing: Generous padding (60px top/bottom).
-- Animation: JS-driven count-up animation when the section scrolls into view.
-
-## 4. TODAY'S AUCTIONS (DISCOVERY)
-
-### 1. Overview
-A horizontally scrollable or grid section displaying auctions that are happening *right now*.
-
-### 2. Importance
-Drives immediate user engagement for viewers. Shows organizers that the platform is highly active and capable of hosting public events.
-
-### 3. Screen Preview
-------------------------------------------------
-🔥 HAPPENING TODAY                         [View All]
-
-[ Tournament Logo ]       [ Tournament Logo ]
- Surat Premier League      Mumbai Tech Cup
- 🔴 LIVE                   Upcoming: 4:00 PM
- 8 Teams • 120 Players     6 Teams • 90 Players
- [ VIEW AUCTION ]          [ SET REMINDER ]
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: 3-column CSS Grid on desktop. Horizontal scroll snap container on mobile.
-- Cards: White background, subtle border, 12px border radius. Slight Y-axis lift on hover.
-- Badges: Use a pulsing red dot animation for the "🔴 LIVE" indicator.
-- Typography: Clear hierarchy. Tournament name bold and prominent, stats in muted gray.
-- Buttons: Full-width outline button at the bottom of the card.
-
-## 5. HOW IT WORKS
-
-### 1. Overview
-A step-by-step visual guide explaining the journey from tournament creation to the final squad generation.
-
-### 2. Importance
-Demystifies the software. Helps organizers visualize how easy it is to replace their manual/paper processes with this SaaS tool.
-
-### 3. Screen Preview
-------------------------------------------------
-1. Create Event --> 2. Add Teams & Players --> 3. Run Live Auction
-
-[ Icon: Setup ]     [ Icon: Database ]         [ Icon: Gavel ]
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: Horizontal timeline or an alternating left/right zig-zag section.
-- Visuals: Pair each step with a custom icon or a micro-screenshot of that specific step in action.
-- Colors: Use Deep Navy for the connecting lines, Electric Blue for active/current steps.
-- Spacing: Keep it airy (80px between steps) so users aren't overwhelmed by text.
-
-## 6. FEATURE SHOWCASE
-
-### 1. Overview
-A grid of cards highlighting specific capabilities of the platform (Real-Time Bidding, Automated Purse Tracking, Bulk Import).
-
-### 2. Importance
-Answers the "What can it do?" question. Critical for convincing experienced organizers that all their edge cases are covered.
-
-### 3. Screen Preview
-------------------------------------------------
-[⚡ Real-Time Bidding]    [💰 Purse Tracking]
-Instant bid updates        Automated budget
-across all devices.        calculations.
-
-[📊 Detailed Reports]      [📺 TV Overlay]
-Export squads & spend.     Optimized for big
-                           screen displays.
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: 3x2 or 4x2 CSS Grid. 1 column on mobile.
-- Cards: Solid Very Light Gray background (no border) or white with a very subtle shadow. Keep them uniform in height.
-- Icons: Use a consistent, modern icon set (line icons colored in Electric Blue).
-- Typography: Short, punchy titles (18px bold). 2-line maximum descriptions.
-
-## 7. LIVE AUCTION PREVIEW (PUBLIC VIEWER)
-
-### 1. Overview
-A large, highly visual section demonstrating exactly what the public sees when an auction is live.
-
-### 2. Importance
-Organizers care deeply about how their tournament looks to their audience. This proves the output is premium and professional.
-
-### 3. Screen Preview
-------------------------------------------------
-"Give your audience a professional experience."
-
-+----------------------------------------------+
-| [Player Photo]  Virat K. | All-Rounder       |
-|                                              |
-| CURRENT BID: ₹ 2,40,000                      |
-| WINNING TEAM: [Logo] Titans                  |
-|                                              |
-| [ Timer: 00:08 ]                 [ SOLD! ]   |
-+----------------------------------------------+
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: A massive mock browser-window or TV screen centered on the page.
-- Visuals: Use high-contrast colors inside the mockup (e.g., Deep Navy background for the player card, bright Cricket Green for the "SOLD!" badge).
-- Animation: Auto-play a subtle CSS animation of a bid increasing (numbers flipping) to simulate live action.
-- Spacing: 100px padding around the mockup to isolate it as a showpiece.
-
-## 8. PRICING SECTION
-
-### 1. Overview
-Clear tiered pricing options displaying what features and limits apply to each tier.
-
-### 2. Importance
-Crucial for SaaS conversion. Users need to immediately understand the cost relative to their tournament size without having to contact sales.
-
-### 3. Screen Preview
-------------------------------------------------
-[ STARTER ]            [ PRO ] (Highlighted)
-For small leagues      For growing tournaments
-₹ 999 / event          ₹ 2,499 / event
-- Up to 8 Teams        - Up to 16 Teams
-- 150 Players          - 500 Players
-[ START FREE ]         [ CHOOSE PRO ]
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: 3-column flex or grid on desktop. Stacked on mobile.
-- Cards: The middle "Pro" or "Recommended" card should scale up slightly (transform: scale(1.05)), have a primary color border (Electric Blue), and a prominent solid CTA button.
-- Checkmarks: Use Cricket Green checkmark icons for included features.
-- Colors: White cards, dark text.
-
-## 9. TESTIMONIALS
-
-### 1. Overview
-Quotes and reviews from tournament organizers who have successfully used the platform.
-
-### 2. Importance
-Provides social proof. Overcomes objections by showing that real people trust the software for high-stakes, real-money auctions.
-
-### 3. Screen Preview
-------------------------------------------------
-"We used to do this on paper. CrickBid saved
-us hours and looked amazing on the projector."
-- Rahul M., Surat Premier League
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: Horizontal masonry grid or a clean, auto-playing horizontal carousel.
-- Cards: White background. Add a large, faint quotation mark in the background as a watermark.
-- Images: Small circular avatars next to the user's name.
-- Typography: Italicized body text for the quote. Bold name and muted organization title.
-
-## 10. FAQ (FREQUENTLY ASKED QUESTIONS)
-
-### 1. Overview
-A collapsible list of common questions regarding platform capabilities, setup, and pricing.
-
-### 2. Importance
-Reduces friction and support tickets. Helps users self-serve answers to objections right before they decide to sign up.
-
-### 3. Screen Preview
-------------------------------------------------
-What is a cricket auction software?          [+]
-Can I display the auction on a TV?           [-]
-  -> Yes! Our TV-mode is optimized for...
-Do you support bulk player import?           [+]
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: Single column, constrained width (e.g., max-width: 800px) centered on the page for reading comfort.
-- Interaction: Smooth accordion expand/collapse using CSS transitions (max-height).
-- Borders: Clean 1px solid light gray bottom border between questions. No bulky bounding boxes.
-- Typography: Questions bolded (18px). Answers in regular, muted text (16px).
-
-## 11. FINAL CTA
-
-### 1. Overview
-A high-impact banner at the very bottom of the page prompting the final conversion action.
-
-### 2. Importance
-Captures users who have scrolled to the bottom. This is the last chance to convert them before they leave the site or hit the footer.
-
-### 3. Screen Preview
-------------------------------------------------
-READY TO RUN YOUR NEXT CRICKET AUCTION?
-Create your tournament and start bidding today.
-
-      [ CREATE YOUR AUCTION ]
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: Full width block, centered text content.
-- Background: Deep Navy.
-- Typography: White text. Headline large and commanding (48px+).
-- Button: Large, high-contrast button (Cricket Green) with strong hover state (glow/lift).
-- Spacing: Massive padding (e.g., 100px top/bottom).
-
-## 12. FOOTER
-
-### 1. Overview
-The bottom anchor of the website containing secondary links, legal information, and social media links.
-
-### 2. Importance
-Provides necessary SEO links and secondary navigation for users looking for specific resources (T&C, Contact, Blog) without cluttering the main header.
-
-### 3. Screen Preview
-------------------------------------------------
-[LOGO] CrickBid      Product       Company
-Making auctions      - Pricing     - About
-simple.              - Features    - Contact
-
-© 2026 CrickBid. All rights reserved.
-------------------------------------------------
-
-### 4. Design Instructions
-- Layout: 4-column grid on desktop, stacking into a single column on mobile.
-- Colors: Very Light Gray background with Dark Slate text.
-- Typography: Small (14px), clean, no underlines unless hovered.
-- Spacing: Generous margins between link groups. 40px padding top/bottom for the entire footer.
+## 6. HOW IT WORKS (3-STEP SETUP)
+
+### 1. Component Goal
+Prove that the software is incredibly easy to learn and requires zero technical skill to set up.
+
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: Horizontal timeline (Desktop) or Vertical stack (Mobile).
+- **Elements**: 3 steps connected by a subtle dotted line.
+  1. **Create Tournament**: Set your purse limit and rules.
+  2. **Add Players**: Import your player list in seconds.
+  3. **Start Bidding**: Connect to the big screen and go live.
+- **Icons**: Large, custom illustrative icons in primary brand colors for each step.
+
+---
+
+## 7. FLEXIBLE PRICING (START FOR FREE)
+
+### 1. Component Goal
+Remove the risk of trying a new product. Emphasize that they can start for free, establishing a freemium model that converts curious visitors into actual users.
+
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: 2 or 3 pricing cards centered.
+- **Styling**: The "Free" or "Starter" tier should be welcoming. The "Pro" tier should stand out slightly (larger size, colored border).
+
+### 3. Elements & Interactions
+- **Free Tier (Highlighted)**: 
+  - Headline: "Start your auction for free"
+  - Price: ₹0
+  - Features: Basic auction setup, limited players/teams.
+  - CTA: "Start for Free"
+- **Pro Tier**: 
+  - Headline: "For Growing Tournaments"
+  - Price: Reasonable flat fee per event.
+  - Features: Unlimited players, TV Mode, PDF Exports.
+  - CTA: "Upgrade to Pro"
+
+---
+
+## 8. INTERACTIVE SNEAK PEEK
+
+### 1. Component Goal
+Ignite curiosity by showing the software in action. An auto-playing high-quality GIF or interactive widget.
+
+### 2. Elements
+- **Visual**: A focused snippet of the UI showing a player being bought. E.g., a "SOLD" stamp slamming down on a player's card, or the bid amount rapidly ticking up. 
+- **Text**: "Experience the thrill of the bid."
+
+---
+
+## 9. FAQ (OBJECTION HANDLING)
+
+### 1. Component Goal
+Address common doubts new users might have before committing to a new software platform.
+
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: Max-width `800px`, centered.
+- **Elements**: Accordion style list. 
+- **Sample Questions**: "Is it really free to start?", "Do I need internet to run the auction?", "Can I project it on a TV?"
+
+---
+
+## 10. FINAL HIGH-IMPACT CTA
+
+### 1. Component Goal
+Capture users who have scrolled to the bottom. The last chance to convert.
+
+### 2. Layout & Structure (Figma Auto Layout Specs)
+- **Container**: Full width, Deep Navy background. Large padding (`100px`+).
+- **Elements**: 
+  - Headline: "Ready to step into the digital era?"
+  - Button: Large, high-contrast button (Cricket Green or Vibrant Blue) saying "Start your auction for free".
+
+---
+
+## 11. FOOTER
+
+### 1. Component Goal
+Secondary links and trust anchors.
+- **Elements**: Brand Logo, Links (T&C, Privacy Policy, Contact), Copyright info. Simple 4-column grid.
