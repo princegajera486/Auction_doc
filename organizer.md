@@ -1143,3 +1143,77 @@ A long scrolling form layout with the alternative onboarding methods anchored at
 - **Save Action**: Clicking `[ SAVE PLAYER ]` validates all mandatory fields. If successful, the player is added to the auction pool, and the user is redirected back to the Player List Table (Screen 7.2.1) with a success toast.
 - **Cancel Action**: Clicking `[ Cancel ]` redirects the user back to the Player List Table without saving any data.
 
+---
+
+### Screen 7.2.2.1: Bulk Upload Players (Modal)
+
+#### 1. Overview
+
+The Bulk Upload Players Modal is triggered when the organizer clicks the `[⬆️ Bulk Upload]` button on the Add Player screen.
+
+This modal is designed to streamline the onboarding process for large tournaments. It allows the organizer to download a standardized Excel template, fill it offline, and upload it to import dozens or hundreds of players at once.
+
+---
+
+#### 2. Screen Preview
+
+A centered modal over a darkened background, focusing on the file upload interaction.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  [Darkened Background / Overlay of the Add Player Screen]               │
+│                                                                         │
+│      ┌───────────────────────────────────────────────────────────┐      │
+│      │                                                           │      │
+│      │   Bulk Upload Players                               [ X ] │      │
+│      │   ─────────────────────────────────────────────────────   │      │
+│      │                                                           │      │
+│      │   Step 1: Download Template                               │      │
+│      │   [⬇️ Download Sample Excel Template ]                     │      │
+│      │                                                           │      │
+│      │                                                           │      │
+│      │   Step 2: Upload Filled Data                              │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │                                                   │   │      │
+│      │   │                  [ Upload Icon ]                  │   │      │
+│      │   │          Drag & Drop your Excel file here         │   │      │
+│      │   │                        or                         │   │      │
+│      │   │                 [ Browse Files ]                  │   │      │
+│      │   │                                                   │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │                                                           │      │
+│      │   [ Cancel ]                             [ ADD PLAYERS ]  │      │
+│      │                                                           │      │
+│      └───────────────────────────────────────────────────────────┘      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description | Mandatory |
+| :--- | :--- | :--- | :--- |
+| Download Sample Link | Hyperlink/Button | Downloads the standardized `.xlsx` template | N/A |
+| Upload Area | File Dropzone | Area to drag and drop or browse for the filled Excel file | Yes |
+
+#### 4. Validations
+
+- **File Type**: Only `.xls` or `.xlsx` files are permitted. If a user uploads a PDF or Image, show an error: "Invalid file type. Please upload an Excel file."
+- **File Size**: Restrict the maximum file size (e.g., 5MB or 10MB) to prevent server timeouts.
+- **Data Integrity**: 
+  - The uploaded file must match the column headers of the sample template exactly.
+  - Mandatory fields (e.g., Name, Category, Base Price) within the Excel rows must not be blank.
+
+#### 5. Business Rules
+
+- **Sample Template**: The downloaded template contains column headers mapping directly to the player fields (Name, Mobile No, Category, Specs, Base Value, etc.) along with a "Read Me" sheet explaining the valid dropdown values.
+- **Save/Add Action**: 
+  - Clicking `[ ADD PLAYERS ]` sends the file to the backend for parsing.
+  - The backend validates the rows. If errors are found (e.g., invalid category names), the process is halted, and the organizer is presented with a summary of which rows failed and why.
+  - If successful, the players are imported into the auction, the modal closes, and the user is redirected to the Player List Table with a success message (e.g., "50 Players Imported Successfully").
+- **Cancel Action**: Clicking `[ Cancel ]` or the `[ X ]` icon closes the modal without uploading any data.
+
