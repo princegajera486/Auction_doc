@@ -1345,6 +1345,90 @@ The modal overlays the Player List Table with various configuration options for 
 
 ---
 
+### Screen 7.2.3: Edit Player
+
+#### 1. Overview
+Triggered by clicking the `[ ✏️ ]` icon on a specific player in the Player List Table. This screen is identical to the Add Player form (Screen 7.2.2), but all fields are pre-filled with the player's existing data so the organizer can make updates.
+
+#### 2. Screen Preview
+*(Same UI structure as Screen 7.2.2, but the title reads "Edit Player", and the fields already contain the player's data. The submit button reads `[ UPDATE PLAYER ]`)*.
+
+#### 3. Fields Table
+*(Same fields as Screen 7.2.2)*
+
+#### 4. Validations
+- **Data Integrity**: Mandatory fields cannot be cleared and left blank upon saving. 
+- **Status Change**: If the organizer manually changes the Status from "Sold" to "Available", any associated team linkages must be cleared.
+
+#### 5. Business Rules
+- **Update Action**: Clicking `[ UPDATE PLAYER ]` overrides the existing data in the database and redirects the user back to the Player List Table with a success toast.
+
+---
+
+### Screen 7.2.4: View Player
+
+#### 1. Overview
+Triggered by clicking the `[ 👁 ]` icon on a specific player in the Player List Table. It provides a clean, comprehensive, read-only profile of the player, summarizing all their stats and auction status.
+
+#### 2. Screen Preview
+
+##### Desktop Layout
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Players                                                                          │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │   Player Profile                                                                      │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   [ LARGE PLAYER PHOTO ]                                                              │  │
+│  │                                                                                       │  │
+│  │   Virat Kohli                                                                         │  │
+│  │   Mobile No: 9876543210                                                               │  │
+│  │   Age: 35  |  Category: Batsman                                                       │  │
+│  │                                                                                       │  │
+│  │   --- Specifications ---                                                              │  │
+│  │   Batting: Right Hand Batsman                                                         │  │
+│  │   Bowling: Right Arm Medium                                                           │  │
+│  │   Role: Top Order                                                                     │  │
+│  │                                                                                       │  │
+│  │   --- Sizing ---                                                                      │  │
+│  │   Jersey Name: VIRAT        Jersey Number: 18                                         │  │
+│  │   Jersey Size: L            Trouser Size: 32                                          │  │
+│  │                                                                                       │  │
+│  │   --- Statistics ---                                                                  │  │
+│  │   Matches: 250              Runs: 12000               Wickets: 4                      │  │
+│  │                                                                                       │  │
+│  │   --- Auction Status ---                                                              │  │
+│  │   Base Value: $ 20,000                                                                │  │
+│  │   Current Status: Sold (to Royal Challengers)                                         │  │
+│  │   Sold Price: $ 25,000                                                                │  │
+│  │                                                                                       │  │
+│  │   Extra Details:                                                                      │  │
+│  │   Available for the full season.                                                      │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+- **All Fields from Add Player**: Displayed in a read-only format.
+- **Auction Data**: If sold, displays the `Sold Price` and the `Team` they were sold to.
+
+#### 4. Validations
+- None (Read-only state).
+
+#### 5. Business Rules
+- **Data Display**: If an optional field (like Wickets or Jersey Number) was not provided during registration, it should be hidden from the profile view to maintain a clean layout.
+- **Navigation**: The back button returns the user to the exact page they were on in the Player List Table (preserving pagination state).
+
+---
+
 ## 7.3 Internal Section — MVP (Most Valuable Player)
 
 This section focuses on the financial highlights of the auction, automatically tracking the highest-paid players across the tournament.
