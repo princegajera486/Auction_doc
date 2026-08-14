@@ -1044,11 +1044,13 @@ To provide organizers with flexibility, this screen offers three distinct method
 2. **Add Via Link**: Generates a shareable registration link that players can fill out themselves.
 3. **Bulk Upload**: Allows uploading multiple players at once via an Excel/CSV template.
 
+Additionally, this form features a **Dynamic Customization** capability. Organizers can toggle the visibility of predefined fields and add brand new custom fields if the default form is missing anything they require.
+
 ---
 
 #### 2. Screen Preview
 
-A long scrolling form layout with the alternative onboarding methods anchored at the top.
+A long scrolling form layout with alternative onboarding methods and a field customization option.
 
 ##### Desktop Layout
 
@@ -1061,7 +1063,7 @@ A long scrolling form layout with the alternative onboarding methods anchored at
 │                                                                                             │
 │  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
 │  │   Add New Player                                                                      │  │
-│  │   [🔗 Add via link ]                                              [⬆️ Bulk Upload]    │  │
+│  │   [🔗 Add via link ]          [⚙️ Customize Fields]               [⬆️ Bulk Upload]    │  │
 │  └───────────────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                             │
 │  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
@@ -1093,12 +1095,38 @@ A long scrolling form layout with the alternative onboarding methods anchored at
 │  │   Wickets                             Status                                          │  │
 │  │   [ e.g., 4                        ]  [ Available ▼                    ]              │  │
 │  │                                                                                       │  │
+│  │   [ + Add Custom Field ] (e.g., "Food Preference", "Shoe Size")                       │  │
+│  │                                                                                       │  │
 │  │   Extra Details                                                                       │  │
 │  │   [ Enter any additional info or notes...                                           ] │  │
 │  │                                                                                       │  │
 │  │                                 [ Cancel ]  [ SAVE PLAYER ]                           │  │
 │  └───────────────────────────────────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Customize Fields Drawer/Modal (Triggered by ⚙️ Customize Fields)**
+```text
+┌───────────────────────────────────────┐
+│  Manage Form Fields             [ X ] │
+│  ───────────────────────────────────  │
+│  Select fields to display on form:    │
+│  [☑] Player Photo                     │
+│  [☑] Full Name (Mandatory)            │
+│  [☑] Mobile No (Mandatory)            │
+│  [☑] Age (Mandatory)                  │
+│  [☑] Category (Mandatory)             │
+│  [☑] Specification 1 (Batting)        │
+│  [ ] Specification 2 (Bowling)        │
+│  [☑] Specification 3 (Role)           │
+│  [☑] Base Value (Mandatory)           │
+│  [ ] Jersey Size                      │
+│  [ ] Trouser Size                     │
+│  [ ] Jersey Name                      │
+│  ... (all other fields)               │
+│                                       │
+│  [ SAVE PREFERENCES ]                 │
+└───────────────────────────────────────┘
 ```
 
 #### 3. Fields Table
@@ -1123,6 +1151,7 @@ A long scrolling form layout with the alternative onboarding methods anchored at
 | Wickets | Number | Total wickets taken | No |
 | Extra Details | Text Area | Any additional notes or background info | No |
 | Status | Dropdown | 'Available', 'Sold', or 'Unsold' | Yes (Default: Available) |
+| **Custom Fields** | Dynamic | Any additional field created by the user | Configurable |
 
 #### 4. Validations
 
@@ -1136,11 +1165,18 @@ A long scrolling form layout with the alternative onboarding methods anchored at
 
 #### 5. Business Rules
 
+- **Dynamic Form Configuration**:
+  - All default fields have an associated checkbox in the "Customize Fields" settings.
+  - By default, all checkboxes are **checked**.
+  - If a user unchecks a specific field (e.g., "Trouser Size"), that field is completely hidden from the Add Player form. (Note: Mandatory fields like Full Name or Base Value cannot be unchecked/hidden).
+- **Add Custom Field**: 
+  - If the user needs to collect data not covered by the default form (e.g., "Food Preference", "Shoe Size"), they can click `[ + Add Custom Field ]`. 
+  - This prompts them to define a Field Name and Input Type (Text, Number, Dropdown). The new field is then appended to the form dynamically.
 - **Alternative Onboarding Actions**:
-  - Clicking `[🔗 Add via link ]` copies a unique, public-facing registration URL to the organizer's clipboard.
+  - Clicking `[🔗 Add via link ]` copies a unique, public-facing registration URL to the organizer's clipboard. This public form will mirror the exact field visibility and custom fields configured by the organizer.
   - Clicking `[⬆️ Bulk Upload]` opens a modal where the user can download a CSV template and upload a filled CSV to import multiple players simultaneously.
 - **Default Status**: When a player is manually added via this form, their `Status` automatically defaults to "Available" unless specifically overridden.
-- **Save Action**: Clicking `[ SAVE PLAYER ]` validates all mandatory fields. If successful, the player is added to the auction pool, and the user is redirected back to the Player List Table (Screen 7.2.1) with a success toast.
+- **Save Action**: Clicking `[ SAVE PLAYER ]` validates all visible mandatory fields. If successful, the player is added to the auction pool, and the user is redirected back to the Player List Table (Screen 7.2.1).
 - **Cancel Action**: Clicking `[ Cancel ]` redirects the user back to the Player List Table without saving any data.
 
 ---
