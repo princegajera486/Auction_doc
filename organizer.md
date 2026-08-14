@@ -1343,3 +1343,320 @@ The modal overlays the Player List Table with various configuration options for 
 - **Save/Export Action**: Clicking `[ ⬇️ EXPORT PDF ]` sends the configuration to the backend server, which renders a styled PDF document matching the exact selections, and triggers a download in the organizer's browser.
 - **Cancel Action**: Clicking `[ Cancel ]` or the `[ X ]` icon closes the modal without generating any exports.
 
+---
+
+## 7.3 Internal Section — MVP (Most Valuable Player)
+
+This section focuses on the financial highlights of the auction, automatically tracking the highest-paid players across the tournament.
+
+### Screen 7.3: MVP Leaderboard
+
+#### 1. Overview
+
+The MVP Leaderboard is accessed via the "MVP" tab on the Manage Auction screen. 
+
+It acts as a dynamic leaderboard. As soon as a player is sold to any team during the live auction, they are automatically listed here. The list is strictly ordered by the `Sold Price`, showcasing the most expensive players at the top.
+
+---
+
+#### 2. Screen Preview
+
+The layout highlights the "MVP" tab and features a clean, read-only data table focused on player valuation.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Auctions                                                                         │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   ( LOGO )    Auction Name: Premier League 2026          [ START AUCTION ]            │  │
+│  │               Auction Code: PL-2026-X8F                  [ VIEW AUCTION ]             │  │
+│  │               Date & Time: 15 Oct 2026, 10:00 AM                                      │  │
+│  │               Players Per Team: 15                                                    │  │
+│  │                                                                                       │  │
+│  │   Plan: Free          Live Link: [ Copy Link ]                                        │  │
+│  │   Views: 1.2K         [ Upgrade Now ]                                                 │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  [ Teams ]  [ Players ]  [ ━━ MVP ━━ ]  [ Sponsors ]  [ Link ]  [ About ]                   │
+│  ────────────────────────────────────────────────────────────────────────────────────────── │
+│                                                                                             │
+│     Top Sold Players (Leaderboard)                                                          │
+│                                                                                             │
+│     ┌────┬────────────────────────┬─────────────┬──────────────────┐                        │
+│     │ No │ Player Photo & Name    │ Mobile No   │ Sold Price       │                        │
+│     ├────┼────────────────────────┼─────────────┼──────────────────┤                        │
+│     │ 1  │ (PHOTO) Virat Kohli    │ 9876543210  │ $ 25,000         │                        │
+│     ├────┼────────────────────────┼─────────────┼──────────────────┤                        │
+│     │ 2  │ (PHOTO) Jasprit B.     │ 9123456789  │ $ 22,500         │                        │
+│     ├────┼────────────────────────┼─────────────┼──────────────────┤                        │
+│     │ 3  │ (PHOTO) Ben Stokes     │ 9988776655  │ $ 18,000         │                        │
+│     └────┴────────────────────────┴─────────────┴──────────────────┘                        │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Column Name | Type | Description | Visibility |
+| :--- | :--- | :--- | :--- |
+| No | Number | Sequential rank (1 being the highest paid) | Always visible |
+| Player Photo & Name | Text + Image | Profile picture followed by the player's full name | Always visible |
+| Mobile No | Text/Number | Contact number of the player | Always visible |
+| Sold Price | Currency | The final winning bid amount for the player | Always visible |
+
+#### 4. Validations
+
+- **Empty State**: 
+  - If no players have been sold yet (e.g., the auction hasn't started), display an empty state graphic with the text: "No players sold yet. The leaderboard will populate once the auction begins."
+- **Exclusions**:
+  - Players with a status of `Available` or `Unsold` must never appear in this table.
+
+#### 5. Business Rules
+
+- **Auto-Sorting**: The table must automatically and strictly sort by `Sold Price` in descending order (Highest to Lowest).
+- **Real-Time Sync**: If the auction is currently "Live", this table must update dynamically via WebSockets every time a player's auction concludes and they are marked as "Sold".
+- **Tie-Breaker Logic**: If two players are sold for the exact same amount, the tie should be broken chronologically (the player who was sold *first* takes the higher rank/lower No).
+- **Read-Only View**: Unlike the Players tab, the MVP table does not have action buttons (Edit, Delete). It is strictly a reporting and visualization tool for the organizer.
+
+---
+
+## 7.4 Internal Section — Sponsors
+
+This section allows the organizer to manage and display tournament sponsors. Sponsors can be assigned to specific parts of the auction (e.g., "Title Sponsor", "Drinks Sponsor", "Man of the Match Sponsor").
+
+### Screen 7.4.1: Sponsor List Table
+
+#### 1. Overview
+The default view when navigating to the "Sponsors" tab. It displays a tabular list of all sponsors currently associated with the tournament.
+
+#### 2. Screen Preview
+
+##### Desktop Layout
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Auctions                                                                         │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   ( LOGO )    Auction Name: Premier League 2026          [ START AUCTION ]            │  │
+│  │               Auction Code: PL-2026-X8F                  [ VIEW AUCTION ]             │  │
+│  │               Date & Time: 15 Oct 2026, 10:00 AM                                      │  │
+│  │               Players Per Team: 15                                                    │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  [ Teams ]  [ Players ]  [ MVP ]  [ ━━ Sponsors ━━ ]  [ Link ]  [ About ]                   │
+│  ────────────────────────────────────────────────────────────────────────────────────────── │
+│                                                                                             │
+│     Sponsors (4)                                       [ + ADD SPONSOR ]                    │
+│                                                                                             │
+│     ┌────┬────────────────────────────┬─────────────────────────────┬─────────┐             │
+│     │ No │ Sponsor Photo & Name       │ Sponsor For                 │ Actions │             │
+│     ├────┼────────────────────────────┼─────────────────────────────┼─────────┤             │
+│     │ 1  │ (LOGO) Dream11             │ Title Sponsor               │ 👁 ✏️ 🗑️ │             │
+│     ├────┼────────────────────────────┼─────────────────────────────┼─────────┤             │
+│     │ 2  │ (LOGO) Gatorade            │ Official Beverage Partner   │ 👁 ✏️ 🗑️ │             │
+│     └────┴────────────────────────────┴─────────────────────────────┴─────────┘             │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| No | Number | Sequential index |
+| Sponsor Photo & Name | Text + Image | Logo of the sponsoring brand and their company name |
+| Sponsor For | Text | The specific category/title they are sponsoring |
+| Actions | Buttons | `View (👁)`, `Edit (✏️)`, `Delete (🗑️)` actions |
+
+#### 4. Validations
+- **Empty State**: If no sponsors have been added, display a message: "No Sponsors added yet. Click '+ Add Sponsor' to create one."
+
+#### 5. Business Rules
+- **Routing**: All action buttons (`Add`, `View`, `Edit`, `Delete`) trigger popup modals rather than redirecting to full-page screens to keep the user in context.
+
+---
+
+### Screen 7.4.2: Add Sponsor (Modal)
+
+#### 1. Overview
+Triggered by clicking `[ + ADD SPONSOR ]` in the list table. It is a lightweight popup modal used to quickly register a new sponsor.
+
+#### 2. Screen Preview
+
+##### Modal Layout
+```text
+┌───────────────────────────────────────────────────────────┐
+│   Add New Sponsor                                   [ X ] │
+│   ─────────────────────────────────────────────────────   │
+│                                                           │
+│   ( Upload Logo )                                         │
+│   [ Camera Icon ]                                         │
+│                                                           │
+│   Sponsor Name *                                          │
+│   [ e.g., Dream11                                       ] │
+│                                                           │
+│   Sponsor For *                                           │
+│   [ e.g., Title Sponsor, Beverage Partner               ] │
+│                                                           │
+│                                                           │
+│   [ Cancel ]                            [ SAVE SPONSOR ]  │
+│                                                           │
+└───────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Field Name | Type | Mandatory |
+| :--- | :--- | :--- |
+| Sponsor Photo | File/Image | No |
+| Name | Text | Yes |
+| Sponsor For | Text | Yes |
+
+#### 4. Validations
+- Both `Name` and `Sponsor For` cannot be blank.
+
+#### 5. Business Rules
+- **Save Action**: Clicking `[ SAVE SPONSOR ]` commits the record, closes the modal, and refreshes the sponsor list table with a success toast.
+
+---
+
+### Screen 7.4.3: Edit Sponsor (Modal)
+
+#### 1. Overview
+Triggered by clicking the `[ ✏️ ]` icon on a specific row. It uses the exact same modal layout as "Add Sponsor", but the fields are pre-filled with the sponsor's existing data.
+
+#### 2. Screen Preview
+*(Same UI structure as Screen 7.4.2, but the title reads "Edit Sponsor" and fields contain existing data).*
+
+#### 3. Fields Table
+*(Same as Screen 7.4.2)*
+
+#### 4. Validations
+- Fields cannot be cleared of existing data and left blank upon saving.
+
+#### 5. Business Rules
+- **Update Action**: Clicking `[ UPDATE SPONSOR ]` overrides the existing data, closes the popup, and refreshes the list table.
+
+---
+
+### Screen 7.4.4: View Sponsor (Modal)
+
+#### 1. Overview
+Triggered by clicking the `[ 👁 ]` icon on a specific row. It opens a read-only popup displaying the sponsor's details cleanly.
+
+#### 2. Screen Preview
+
+##### Modal Layout
+```text
+┌───────────────────────────────────────────────────────────┐
+│   Sponsor Details                                   [ X ] │
+│   ─────────────────────────────────────────────────────   │
+│                                                           │
+│            [ LARGE SPONSOR LOGO / PHOTO ]                 │
+│                                                           │
+│   Name                                                    │
+│   Dream11                                                 │
+│                                                           │
+│   Sponsor For                                             │
+│   Title Sponsor                                           │
+│                                                           │
+│                                        [ CLOSE ]          │
+│                                                           │
+└───────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+- **Sponsor Photo**: Read-only display.
+- **Name**: Read-only text.
+- **Sponsor For**: Read-only text.
+
+#### 4. Validations
+- None (Read-only state).
+
+#### 5. Business Rules
+- **Close Action**: Clicking `[ CLOSE ]` or `[ X ]` simply dismisses the modal and returns the user to the list table.
+
+---
+
+## 7.5 Internal Section — Link
+
+This section serves as a centralized hub for all public-facing and integration URLs related to the auction. Organizers can quickly grab these links to share with players, audiences, or broadcasters.
+
+### Screen 7.5: Links Management
+
+#### 1. Overview
+The "Link" tab displays a clean list of copyable URLs. It provides access to the public live view of the auction, the self-service player registration form, and graphical overlays intended for live broadcasting on platforms like YouTube.
+
+#### 2. Screen Preview
+
+##### Desktop Layout
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Auctions                                                                         │
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │   ( LOGO )    Auction Name: Premier League 2026          [ START AUCTION ]            │  │
+│  │               Auction Code: PL-2026-X8F                  [ VIEW AUCTION ]             │  │
+│  │               Date & Time: 15 Oct 2026, 10:00 AM                                      │  │
+│  │               Players Per Team: 15                                                    │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│  [ Teams ]  [ Players ]  [ MVP ]  [ Sponsors ]  [ ━━ Link ━━ ]  [ About ]                   │
+│  ────────────────────────────────────────────────────────────────────────────────────────── │
+│                                                                                             │
+│     Important Auction Links                                                                 │
+│                                                                                             │
+│     ┌───────────────────────────────────────────────────────────────────────────┐           │
+│     │  🌐 Live Web View                                                         │           │
+│     │  Share this link with audiences to watch the live auction leaderboard.    │           │
+│     │  [ https://cricketauction.com/live/PL-2026-X8F ]           [ COPY LINK ]  │           │
+│     └───────────────────────────────────────────────────────────────────────────┘           │
+│                                                                                             │
+│     ┌───────────────────────────────────────────────────────────────────────────┐           │
+│     │  📝 Player Registration Link                                              │           │
+│     │  Share this link with players to allow them to register themselves.       │           │
+│     │  [ https://cricketauction.com/register/PL-2026-X8F ]       [ COPY LINK ]  │           │
+│     └───────────────────────────────────────────────────────────────────────────┘           │
+│                                                                                             │
+│     ┌───────────────────────────────────────────────────────────────────────────┐           │
+│     │  📺 YouTube Overlay Links                                                 │           │
+│     │  Use this transparent browser source link in OBS / vMix for broadcasting. │           │
+│     │  [ https://cricketauction.com/overlay/PL-2026-X8F ]        [ COPY LINK ]  │           │
+│     └───────────────────────────────────────────────────────────────────────────┘           │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description |
+| :--- | :--- | :--- |
+| Live Web View URL | Read-Only Text | The URL pointing to the customer-facing live auction dashboard. |
+| Player Registration URL | Read-Only Text | The URL pointing to the public player registration form. |
+| YouTube Overlay URL | Read-Only Text | The URL pointing to a transparent screen overlay used for live streaming software (e.g., OBS). |
+| Copy Link | Button | Copies the respective URL to the user's clipboard. |
+
+#### 4. Validations
+- **Link Integrity**: Links must accurately reflect the specific `Auction Code` of the currently managed auction. 
+
+#### 5. Business Rules
+- **Copy Action**: Clicking `[ COPY LINK ]` silently copies the text to the clipboard and triggers a brief success toast (e.g., "Link copied to clipboard!").
+- **YouTube Overlay**: This specific link renders a transparent UI designed explicitly to be added as a "Browser Source" in streaming software. It strips away organizer controls and focuses purely on live bidding graphics.
+
