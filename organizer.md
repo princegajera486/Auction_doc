@@ -987,7 +987,7 @@ The full layout with the `Players` tab selected and a data table displaying play
 │  [ Teams ]  [ ━━ Players ━━ ]  [ MVP ]  [ Sponsors ]  [ Link ]  [ About ]                   │
 │  ────────────────────────────────────────────────────────────────────────────────────────── │
 │                                                                                             │
-│     Players (120)                                      [ + ADD PLAYER ]                     │
+│     Players (120)                         [⬇️ Export]  [ + ADD PLAYER ]                     │
 │                                                                                             │
 │     ┌────┬────────────────────────┬─────────────┬─────┬─────────────┬─────────┐             │
 │     │ No │ Player Photo & Name    │ Category    │ Age │ Phone No.   │ Actions │             │
@@ -1252,4 +1252,94 @@ A centered modal over a darkened background, focusing on the file upload interac
   - The backend validates the rows. If errors are found (e.g., invalid category names), the process is halted, and the organizer is presented with a summary of which rows failed and why.
   - If successful, the players are imported into the auction, the modal closes, and the user is redirected to the Player List Table with a success message (e.g., "50 Players Imported Successfully").
 - **Cancel Action**: Clicking `[ Cancel ]` or the `[ X ]` icon closes the modal without uploading any data.
+
+---
+
+### Screen 7.2.1.1: Export Players (Modal)
+
+#### 1. Overview
+
+The Export Players Modal is triggered when the organizer clicks the `[⬇️ Export]` button on the Player List Table.
+
+This modal gives the organizer complete control over exporting the player pool data into either an Excel file or a highly customizable PDF report, allowing them to filter, sort, and select exactly which data columns they want to include.
+
+---
+
+#### 2. Screen Preview
+
+The modal overlays the Player List Table with various configuration options for the PDF export.
+
+##### Desktop Layout
+
+```text
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│  [Darkened Background / Overlay of the Player List Table]               │
+│                                                                         │
+│      ┌───────────────────────────────────────────────────────────┐      │
+│      │                                                           │      │
+│      │   Export Players                                    [ X ] │      │
+│      │   ─────────────────────────────────────────────────────   │      │
+│      │                                                           │      │
+│      │   [⬇️ Export Player Excel ]                                │      │
+│      │   (Exports all fields as a raw data spreadsheet)          │      │
+│      │                                                           │      │
+│      │   ─────────────────────────────────────────────────────   │      │
+│      │   Export Player PDF Configuration                         │      │
+│      │                                                           │      │
+│      │   PDF Option                                              │      │
+│      │   [ Select Option ▼                                     ] │      │
+│      │                                                           │      │
+│      │   Order By                                                │      │
+│      │   [ Select Order By ▼                                   ] │      │
+│      │                                                           │      │
+│      │   No. Of Columns                    Status                │      │
+│      │   [ Two ▼                         ] [ All ▼             ] │      │
+│      │                                                           │      │
+│      │   ▼ Manage Data (Columns to Include)                      │      │
+│      │   ┌───────────────────────────────────────────────────┐   │      │
+│      │   │ [☑] Photo              [☑] Specialization 1       │   │      │
+│      │   │ [☑] Number             [☑] Specialization 2       │   │      │
+│      │   │ [☑] Category           [☑] Specialization 3       │   │      │
+│      │   │ [☑] Team               [ ] Age                    │   │      │
+│      │   │ [☑] Info (Name/Stats)  [ ] Base Value             │   │      │
+│      │   │ [ ] Mobile No          [ ] Match/Run/Wickets      │   │      │
+│      │   └───────────────────────────────────────────────────┘   │      │
+│      │                                                           │      │
+│      │                                                           │      │
+│      │   [ Cancel ]                        [ ⬇️ EXPORT PDF ]      │      │
+│      │                                                           │      │
+│      └───────────────────────────────────────────────────────────┘      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description |
+| :--- | :--- | :--- |
+| Export Player Excel | Button | Quickly downloads an `.xlsx` file containing all player records and all fields. |
+| PDF Option | Dropdown | Filters the PDF scope: `All`, `Category Wise`, `Team Wise`. |
+| Order By | Dropdown | Sorts the PDF: `Player Name`, `Player Number`, `Sold Value`, `Sold Sequence`, `Category Wise`. |
+| No. Of Columns | Dropdown | Layout structure of the PDF: `Two` (Default), `Three`. |
+| Status | Dropdown | Filters by availability: `All`, `Available`, `Sold`, `Unsold`. |
+| Manage Data | Collapsible | Expanding this reveals checkboxes for every player data field. |
+| Manage Data Checkboxes| Checkboxes | Dictates which data points appear on the generated PDF. |
+
+#### 4. Validations
+
+- **Manage Data Selection**:
+  - At least one checkbox must be selected in the "Manage Data" section to generate a PDF. If none are selected, disable the `[ ⬇️ EXPORT PDF ]` button or show an error toast.
+- **Empty State**:
+  - If the filter combination (e.g., Status: Sold + PDF Option: Category Wise) yields zero players, show a toast notification ("No players found for the selected criteria").
+
+#### 5. Business Rules
+
+- **Excel Export Behavior**: Clicking `[⬇️ Export Player Excel]` bypasses the PDF configurations entirely and immediately downloads a `.xlsx` file containing every single data field for all players in the pool.
+- **Default Manage Data State**: When the "Manage Data" section is expanded, the following checkboxes are ticked by default: `Photo`, `Number`, `Category`, `Team`, `Info` (basic stats/name), `Specialization 1`, `Specialization 2`, and `Specialization 3`. All other fields (from the Add Player form) are unchecked by default.
+- **PDF Layout Generation (No. of Columns)**:
+  - If `Two` is selected, the PDF generates a grid with two player profiles per row.
+  - If `Three` is selected, the PDF generates a grid with three slightly smaller player profiles per row.
+- **Save/Export Action**: Clicking `[ ⬇️ EXPORT PDF ]` sends the configuration to the backend server, which renders a styled PDF document matching the exact selections, and triggers a download in the organizer's browser.
+- **Cancel Action**: Clicking `[ Cancel ]` or the `[ X ]` icon closes the modal without generating any exports.
 
