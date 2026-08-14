@@ -45,10 +45,10 @@ Provide intuitive navigation that builds immediate trust and funnels users towar
 
 ---
 
-## 2. HERO SECTION (THE HEARTBEAT)
+## 2. HERO SECTION (DIGITAL ASCENSION)
 
 ### 1. Component Goal
-The beating heart of the website. It must immediately make the user feel the intense adrenaline and drama of a high-stakes, broadcast-quality live auction.
+Visually represent the "death of paper" and the transformation into a premium digital experience. It must immediately communicate that the old, messy way of running auctions is over, replaced by a beautiful, high-speed digital workflow.
 
 ### 2. Layout & Structure (Figma Auto Layout Specs)
 - **Container**: Flexbox (Column), `align-items: center`, `text-align: center`.
@@ -56,87 +56,97 @@ The beating heart of the website. It must immediately make the user feel the int
 - **Padding**: `120px` top, `0px` bottom (image bleeds off the bottom).
 
 ### 3. Styling & Typography
-- **Theme**: Light & Soft Mode. Background is a creamy, ultra-light gray (`#FAFAFA`) or pure white, featuring a very soft, diffuse radial glow in the center (like a gentle pastel coral or electric blue).
+- **Theme**: Light & Soft Mode. Background is a creamy, ultra-light gray (`#FAFAFA`) or pure white, featuring a soft, diffuse glowing aura (like gentle cyan and pastel coral) near the top of the mockup.
 - **Headline**: Massive & cinematic (72px+), ExtraBold (900). Color: Deep Navy (`#0F172A`) for maximum high-contrast impact.
 - **Subheadline**: 22px, Medium (500), Color: `#6B7280` (Muted Slate). Max-width: 650px.
-- **Background Effect**: A sleek, elegant, animated ECG (heartbeat) line stretching across the background. Instead of aggressive red, it's a soft glowing coral (`#FF6B6B`) or vibrant cyan that spikes beautifully behind the mockup.
+- **Background Effect**: A gradient transformation. The bottom of the section is slightly muted and cluttered, fading upwards into a pristine, glowing, clean digital space.
 
 ### 4. Elements & Interactions
 - **Typography Block**: 
-  - Headline: "Where Every Bid is a Heartbeat."
-  - Subheadline: "Experience the adrenaline of a flawless, broadcast-quality auction. Silence the room and command the bidding war."
+  - Headline: "Your Auction, Now at Light Speed."
+  - Subheadline: "Leave the spreadsheets behind. Enter the new era of cricket auctions."
 - **Action Buttons**:
   - *Primary*: "Start your auction for free" (Large, solid Vivid Blue or Coral button with a soft, glowing drop-shadow).
   - *Secondary*: "Watch the demo" (Ghost button with a subtle gray background on hover and a 'Play' icon).
-- **Hero Image (The Climax)**: A stunning, high-quality 3D image of a live auction in progress.
-  - *The Visual*: A dramatic 3D scene showing bids actively raising (e.g., floating numbers ticking upward, a high-tech auction podium, or dynamic bid indicators).
-  - *Note*: An external, pre-rendered 3D image will be sourced and placed here to serve as the visual anchor.
-  - *Animation*: The elegant heartbeat line in the background spikes sharply behind this 3D image.
+- **Hero Visual (The Ascension)**: A breathtaking 3D composition showing the exact moment of digital transformation.
+  - *The Base*: At the bottom of the screen, messy elements—torn pieces of paper, old calculators, and handwritten lists—are fading out.
+  - *The Transformation*: As the eye moves upward, those papers magically morph into glowing, beautiful digital UI cards floating in mid-air.
+  - *The Data*: The glowing digital cards feature the player "Zero - The Phenom" and a bidding war between "Azure Royals" and "Crimson Titans".
+  - *Animation*: The UI cards gently float up and down, glowing with a soft neon aura, proving the digital way is vastly superior.
 
 ### 5. Screen Preview
 ```text
 --------------------------------------------------------------------------------
-                         Where Every Bid 
-                         is a Heartbeat.
+                     Your Auction, Now at Light Speed.
                   
-      Experience the adrenaline of a flawless, broadcast-quality 
-           auction. Silence the room and command the bidding war.
+       Leave the spreadsheets behind. Enter the new era of cricket 
+                                 auctions.
 
          [ START YOUR AUCTION FOR FREE ]   [ Watch the demo ]
 
-              -- soft glowing pastel coral heartbeat line --
-           /^\       /^\       /^\       /^\       /^\       /^\
-   _______/   \_____/   \_____/   \_____/   \_____/   \_____/   \_______
-
-          +-------------------------------------------------------------+
-          |                                                             |
-          |                                                             |
-          |         [ 3D AUCTION IMAGE: BIDS ACTIVELY RAISING ]         |
-          |           (High-quality pre-rendered 3D asset)              |
-          |                                                             |
-          |                                                             |
-          +-------------------------------------------------------------+
+                       .   *    ✦    *   .
+                    [ GLOWING DIGITAL UI CARDS ]
+                    | ZERO - THE PHENOM        |
+                    | Azure Royals VS Crimson  |  * (Floating in mid-air
+             ✦      | Titans                   |     with a soft neon aura)
+                    '--------------------------'
+                     ↑       ↑       ↑       ↑
+             (Magical Transformation / Ascending particles)
+                  _ __ ____ ___ _ _____
+                 / /  / _  //_  \ / _  \  <-- (Torn papers, calculators,
+                /_/__/__/__/__/__/____ /      messy handwritten lists at bottom)
 --------------------------------------------------------------------------------
 ```
 
 ### 6. AI Generation Prompt
-"A highly impactful, light and soft SaaS landing page hero section. Massive bold deep navy headline 'Where Every Bid is a Heartbeat'. In the clean white background, a sleek, soft glowing pastel coral ECG heartbeat monitor line. In the center, a hyper-realistic, bright 3D frosted white glassmorphism mockup of a live auction bidding screen showing a countdown timer and intense bidding war between fictional epic teams. Soft, elegant lighting, clean aesthetic, but highly dynamic and thrilling. Premium Dribbble UI design."
+"A highly impactful, light and soft SaaS landing page hero section. Massive bold deep navy headline 'Your Auction, Now at Light Speed'. Below, a breathtaking 3D transformation visual: at the bottom, messy torn papers and old calculators are fading away and magically transforming as they rise upwards into glowing, beautiful frosted white glassmorphism UI cards floating in mid-air. The floating UI shows a futuristic cricket player card 'Zero - The Phenom'. Soft, elegant lighting, a gentle neon aura around the cards, clean aesthetic, highly dynamic and magical. Premium Dribbble UI design."
 
 ---
 
-## 3. THE PAIN POINT (THE OLD WAY VS. THE NEW WAY)
+## 3. THE PAIN-CRUSHING BENTO GRID (FEATURE HIGHLIGHTS)
 
 ### 1. Component Goal
-Connect with the organizer's pain points. Visually contrast the stress of manual auctions against the ease of using CrickBid.
+Eliminate the user's biggest pain points without showing ugly paper or "before and afters". Instead, use a centralized, premium, Apple-style Bento Grid of cards. Each card highlights a major headache and immediately shows the beautiful digital solution via micro-animations.
 
 ### 2. Layout & Structure (Figma Auto Layout Specs)
-- **Container**: Flexbox (Row), 2 equally sized columns. `gap: 40px`.
-- **Dimensions**: Max Content Width: 1280px.
+- **Container**: CSS Grid. Max Content Width: 1280px, centered.
+- **Grid Layout**: 
+  - Top row: One wide card (spans 2 columns), one square card (1 column).
+  - Bottom row: One square card (1 column), one wide card (spans 2 columns).
+- **Gap**: `24px` between cards.
 
 ### 3. Elements & Interactions
-- **Left Column (The Old Way)**: 
-  - Visual: A messy graphic of crossed-out paper, calculators, and tangled spreadsheets. Muted, dull colors.
-  - Text: "Stressful calculations, disputed bids, and messy team squads."
-- **Right Column (The New Way)**: 
-  - Visual: Your clean, automated, beautiful software interface. Bright, vibrant colors.
-  - Text: "Automated purse math, instant Live Links, and beautiful digital squads."
+- **Card 1 (Wide): Automated Purse Math**
+  - Text: "Never touch a calculator again."
+  - Visual: A sleek progress bar filling up automatically, perfectly calculating remaining budget.
+- **Card 2 (Square): Instant Squad Exports**
+  - Text: "Instant digital squads."
+  - Visual: A beautiful PDF icon popping into existence showing generated teams.
+- **Card 3 (Square): Dispute-Free Logs**
+  - Text: "Perfect bid history."
+  - Visual: A clean, scrolling live-log showing exactly who bid what.
+- **Card 4 (Wide): TV Mode Sync**
+  - Text: "Always perfectly synced."
+  - Visual: A laptop and a TV screen glowing and updating simultaneously.
+- **Styling**: Cards have frosted glass backgrounds (`rgba(255, 255, 255, 0.8)`), subtle white borders (`1px solid rgba(255,255,255,0.2)`), and a soft shadow. On hover, the cards lift slightly (`transform: translateY(-4px)`) and the micro-animation plays.
 
 ### 4. Screen Preview
 ```text
 --------------------------------------------------------------------------------
-                     [ THE OLD WAY ]                [ THE NEW WAY ]
-
-                  (Muted, Messy Graphics)       (Vibrant, Clean Graphics)
-                 +-----------------------+     +-----------------------+
-                 | \  | /                |     |                       |
-                 | - PAPER & PENS -      |     |  [ CRICKBID UI ]      |
-                 | /  | \                |     |  ✓ Auto-Purse Math    |
-                 |  CALCULATOR ERRORS    |     |  ✓ Live Link          |
-                 |  MESSY SQUADS         |     |  ✓ Digital Squads     |
-                 +-----------------------+     +-----------------------+
-
-                   "Stressful math &            "Automated, instant,
-                   disputed bids."              and beautiful."
+         +------------------------------------+ +--------------------+
+         |  Never touch a calculator again.   | |  Instant digital   |
+         |                                    | |  squads.           |
+         |    [=== 80% Purse Remaining ===]   | |                    |
+         |    (Auto-calculating progress bar) | |   [ PDF Icon ]     |
+         +------------------------------------+ +--------------------+
+         
+         +--------------------+ +------------------------------------+
+         |  Perfect bid       | |  Always perfectly synced.          |
+         |  history.          | |                                    |
+         |                    | |       [ Laptop ] <--> [ TV ]       |
+         |  > Alchemists: 2M  | |                                    |
+         |  > Titans: 1.5M    | |       (Glowing sync animation)     |
+         +--------------------+ +------------------------------------+
 --------------------------------------------------------------------------------
 ```
 
@@ -180,20 +190,41 @@ Showcase the power of the "Live Link." Clarify that this isn't a heavy video str
 
 ---
 
-## 5. FEATURE SHOWCASE (BENTO BOX UI)
+## 5. OUR FEATURES (INTERACTIVE TABS)
 
 ### 1. Component Goal
-Highlight the core capabilities that save the organizer time, presented in a highly scannable, modern "Bento Box" grid layout.
+Provide a comprehensive deep-dive into the platform's capabilities without overwhelming the user with a massive list. Use a modern, interactive tabbed interface (similar to Stripe or Linear) that feels incredibly high-end.
 
 ### 2. Layout & Structure (Figma Auto Layout Specs)
-- **Container**: CSS Grid (or Figma Auto Layout wrapping), typically 3-4 distinct cards of varying sizes.
-- **Gap**: `24px`.
+- **Container**: Flexbox (Row), 2-column layout. Max Content Width: 1280px, centered.
+- **Left Column (Navigation)**: `35%` width. Vertical list of feature tabs.
+- **Right Column (Dynamic Visual)**: `65%` width. A large, sticky container displaying the UI associated with the active tab.
 
-### 3. Elements
-- **Card 1 (Large)**: "Auto-Purse Calculation" - visual of a budget bar draining.
-- **Card 2 (Medium)**: "Real-Time Sync" - icons of a laptop and phone connected.
-- **Card 3 (Medium)**: "Instant Squad Exports" - visual of a PDF icon with team logos.
-- **Styling**: Cards have very light gray backgrounds (`#F8FAFC`), 16px border-radius, and a soft hover-lift effect.
+### 3. Elements & Interactions
+- **Left Column Tabs**:
+  - *Tab 1*: "Player Database & Import" (Active state: Dark text with a neon blue vertical indicator bar).
+  - *Tab 2*: "Automated Team Finances" (Inactive state: Muted gray text).
+  - *Tab 3*: "Live Broadcast Mode" (Inactive state: Muted gray text).
+  - *Tab 4*: "Post-Auction PDF Exports" (Inactive state: Muted gray text).
+- **Right Column Visuals**:
+  - Displays a high-fidelity, floating glassmorphism UI card that perfectly illustrates the active tab.
+  - *Animation*: When a user clicks a new tab on the left, the visual on the right smoothly cross-fades and slightly scales up (`transform: scale(1.02)`) into view.
+
+### 4. Screen Preview
+```text
+--------------------------------------------------------------------------------
+   EVERYTHING YOU NEED TO RUN A PRO AUCTION
+
+   [|] Player Database         +---------------------------------------+
+                               |                                       |
+       Automated Finances      |     [ CSV UPLOAD WIDGET ]             |
+                               |     ✓ 500 Players Imported            |
+       Live Broadcast Mode     |     ✓ Base Prices Configured          |
+                               |     ✓ Roles Assigned                  |
+       Post-Auction Exports    |                                       |
+                               +---------------------------------------+
+--------------------------------------------------------------------------------
+```
 
 ---
 
