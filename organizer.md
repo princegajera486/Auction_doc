@@ -1744,3 +1744,73 @@ The "Link" tab displays a clean list of copyable URLs. It provides access to the
 - **Copy Action**: Clicking `[ COPY LINK ]` silently copies the text to the clipboard and triggers a brief success toast (e.g., "Link copied to clipboard!").
 - **YouTube Overlay**: This specific link renders a transparent UI designed explicitly to be added as a "Browser Source" in streaming software. It strips away organizer controls and focuses purely on live bidding graphics.
 
+---
+
+# Screen 10: My Auctions (List View)
+
+#### 1. Overview
+The "Auctions" tab (accessed via the top navbar) displays all the tournaments currently managed by the organizer.
+
+Because organizers typically manage only 1 or 2 auctions at a time, a standard grid layout would leave the screen feeling empty. To solve this, this screen uses a **Hero Banner + Horizontal Carousel** layout. A stunning graphic occupies the top half of the screen, creating a premium dashboard feel, while the auctions are displayed below it in a sleek horizontal scroll.
+
+#### 2. Screen Preview
+
+##### Desktop Layout
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    [━━ Auctions ━━] [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ┌───────────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                                                                                       │  │
+│  │                                                                                       │  │
+│  │                              YOUR COMMAND CENTER                                      │  │
+│  │                                                                                       │  │
+│  │      "Manage your tournaments, track live bids, and build champion teams."            │  │
+│  │                                                                                       │  │
+│  │                                                                                       │  │
+│  │                         [ + CREATE NEW AUCTION ]                                      │  │
+│  │                                                                                       │  │
+│  └───────────────────────────────────────────────────────────────────────────────────────┘  │
+│                                                                                             │
+│     Your Tournaments (2)                                                                    │
+│                                                                                             │
+│     <   ┌─────────────────────────────────────┐   ┌─────────────────────────────────────┐   >
+│         │ (LOGO) Premier League 2026          │   │ (LOGO) Winter Cup 2027              │
+│         │ 📅 15 Oct 2026 | 📍 Mumbai, India   │   │ 📅 10 Jan 2027 | 📍 Delhi, India    │
+│         │ 👥 120 Players | 🏏 8 Teams         │   │ 👥 0 Players   | 🏏 0 Teams         │
+│         │                                     │   │                                     │
+│         │ Status: 🟢 Upcoming                 │   │ Status: ⚪ Draft                    │
+│         │                                     │   │                                     │
+│         │ [ ⚙️ MANAGE AUCTION ]                 │   │ [ ⚙️ MANAGE AUCTION ]                 │
+│         └─────────────────────────────────────┘   └─────────────────────────────────────┘
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description | Mandatory |
+| :--- | :--- | :--- | :--- |
+| Hero Banner Text | Static Text | Inspirational welcome text ("Your Command Center"). | Yes |
+| Create New Auction | Button | Navigates the user to the "Create Auction" form. | Yes |
+| Auction Card: Logo | Image | The logo uploaded during auction creation. | No |
+| Auction Card: Title | Text | The name of the tournament. | Yes |
+| Auction Card: Date & Venue | Text | The scheduled date and location of the auction. | Yes |
+| Auction Card: Quick Stats | Text | Dynamic counts of how many players and teams are registered. | Yes |
+| Auction Card: Status | Badge | Current state: `Draft`, `Upcoming`, `Live`, or `Completed`. | Yes |
+| Manage Auction | Button | Navigates to the Manage Auction dashboard. | Yes |
+
+#### 4. Validations
+- **Empty State**: 
+  - If the user has exactly 0 auctions, the horizontal carousel is hidden, and replaced with an empty state graphic below the Hero Banner stating: "You haven't created any auctions yet. Click the button above to start your first tournament!"
+
+#### 5. Business Rules
+- **Carousel Behavior**: The horizontal carousel allows side-scrolling if the organizer happens to have more than 3 auctions. If they only have 1 or 2, the cards are centered or left-aligned beautifully without needing to scroll.
+- **Dynamic Status Badge**:
+  - `Draft`: Auction is created but date is far in the future or setup is incomplete.
+  - `Upcoming`: Auction is fully set up and scheduled within the next few days.
+  - `Live`: The auction is currently happening right now. (This badge should pulse or glow green).
+  - `Completed`: The auction date has passed and bidding is finished.
+- **Quick Stats Sync**: The "Players" and "Teams" counts on the card must be dynamically pulled from the backend and represent the actual number of registered entities for that specific auction.
+
