@@ -1775,15 +1775,24 @@ Because organizers typically manage only 1 or 2 auctions at a time, a standard g
 │                                                                                             │
 │     Your Tournaments (2)                                                                    │
 │                                                                                             │
-│     <   ┌─────────────────────────────────────┐   ┌─────────────────────────────────────┐   >
-│         │ (LOGO) Premier League 2026          │   │ (LOGO) Winter Cup 2027              │
-│         │ 📅 15 Oct 2026 | 📍 Mumbai, India   │   │ 📅 10 Jan 2027 | 📍 Delhi, India    │
-│         │ 👥 120 Players | 🏏 8 Teams         │   │ 👥 0 Players   | 🏏 0 Teams         │
-│         │                                     │   │                                     │
-│         │ Status: 🟢 Upcoming                 │   │ Status: ⚪ Draft                    │
-│         │                                     │   │                                     │
-│         │ [ ⚙️ MANAGE AUCTION ]                 │   │ [ ⚙️ MANAGE AUCTION ]                 │
-│         └─────────────────────────────────────┘   └─────────────────────────────────────┘
+│     <   ┌─────────────────────────────────────────┐                                         │
+│         │  [🔴 LIVE]                   [ 02:15 ]  │   (Another Card...)                     │
+│         │                                         │                                         │
+│         │                 (LOGO)                  │                                         │
+│         │          Premier League 2026            │                                         │
+│         │             [ T20 Auction ]             │                                         │
+│         │                                         │                                         │
+│         │      👥 32 Teams    |   👤 512 Players  │                                         │
+│         ├─────────────────────────────────────────┤                                         │
+│         │                                         │                                         │
+│         │  Current Price       Highest Bidder     │                                         │
+│         │  ₹ 8.50L             Team Strikers      │                                         │
+│         │                                         │                                         │
+│         │  -------------------------------------  │                                         │
+│         │  Next Bid Minimum    ₹ 9.00L            │                                         │
+│         │                                         │                                         │
+│         │      [    MANAGE AUCTION ➔    ]         │                                         │
+│         └─────────────────────────────────────────┘                                         │
 │                                                                                             │
 └─────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -1794,23 +1803,22 @@ Because organizers typically manage only 1 or 2 auctions at a time, a standard g
 | :--- | :--- | :--- | :--- |
 | Hero Banner Text | Static Text | Inspirational welcome text ("Your Command Center"). | Yes |
 | Create New Auction | Button | Navigates the user to the "Create Auction" form. | Yes |
+| Auction Card: Live Badge & Timer | Badges | Shows `🔴 LIVE` status and a countdown/elapsed timer (e.g., `02:15`). | No (Only when Live) |
 | Auction Card: Logo | Image | The logo uploaded during auction creation. | No |
-| Auction Card: Title | Text | The name of the tournament. | Yes |
-| Auction Card: Date & Venue | Text | The scheduled date and location of the auction. | Yes |
-| Auction Card: Quick Stats | Text | Dynamic counts of how many players and teams are registered. | Yes |
-| Auction Card: Status | Badge | Current state: `Draft`, `Upcoming`, `Live`, or `Completed`. | Yes |
-| Manage Auction | Button | Navigates to the Manage Auction dashboard. | Yes |
+| Auction Card: Title | Text | The name of the tournament (e.g., Premier League 2026). | Yes |
+| Auction Card: Subtitle | Text Pill | The format of the auction (e.g., T20 Auction). | No |
+| Auction Card: Quick Stats | Text | Dynamic counts of `Teams` and `Players`. | Yes |
+| Auction Card: Current Price | Currency | The highest bid amount currently on the active player. | No (Only when Live) |
+| Auction Card: Highest Bidder | Text | The team name currently holding the highest bid. | No (Only when Live) |
+| Auction Card: Next Bid Minimum | Currency | The minimum amount required for the next bid. | No (Only when Live) |
+| Manage Auction | Button | Main CTA. Navigates to the Manage Auction dashboard. | Yes |
 
 #### 4. Validations
 - **Empty State**: 
   - If the user has exactly 0 auctions, the horizontal carousel is hidden, and replaced with an empty state graphic below the Hero Banner stating: "You haven't created any auctions yet. Click the button above to start your first tournament!"
 
 #### 5. Business Rules
-- **Carousel Behavior**: The horizontal carousel allows side-scrolling if the organizer happens to have more than 3 auctions. If they only have 1 or 2, the cards are centered or left-aligned beautifully without needing to scroll.
-- **Dynamic Status Badge**:
-  - `Draft`: Auction is created but date is far in the future or setup is incomplete.
-  - `Upcoming`: Auction is fully set up and scheduled within the next few days.
-  - `Live`: The auction is currently happening right now. (This badge should pulse or glow green).
-  - `Completed`: The auction date has passed and bidding is finished.
+- **Live Auction Stats (Real-Time)**: If the auction is `Live`, the bottom half of the card dynamically displays real-time bidding stats (`Current Price`, `Highest Bidder`, `Next Bid Minimum`). These values update via WebSockets directly on the dashboard.
+- **Non-Live State**: If the auction is `Draft`, `Upcoming`, or `Completed`, the real-time bidding stats in the bottom half of the card are hidden. The card will either collapse to be shorter, or display the date/venue in place of the live stats.
+- **Carousel Behavior**: The horizontal carousel allows side-scrolling if the organizer happens to have more than 3 auctions. If they only have 1 or 2, the large cards are centered or left-aligned beautifully without needing to scroll.
 - **Quick Stats Sync**: The "Players" and "Teams" counts on the card must be dynamically pulled from the backend and represent the actual number of registered entities for that specific auction.
-
