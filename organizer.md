@@ -1822,3 +1822,66 @@ Because organizers typically manage only 1 or 2 auctions at a time, a standard g
 - **Non-Live State**: If the auction is `Draft`, `Upcoming`, or `Completed`, the real-time bidding stats in the bottom half of the card are hidden. The card will either collapse to be shorter, or display the date/venue in place of the live stats.
 - **Carousel Behavior**: The horizontal carousel allows side-scrolling if the organizer happens to have more than 3 auctions. If they only have 1 or 2, the large cards are centered or left-aligned beautifully without needing to scroll.
 - **Quick Stats Sync**: The "Players" and "Teams" counts on the card must be dynamically pulled from the backend and represent the actual number of registered entities for that specific auction.
+
+---
+
+# Screen 11: Upgrade Plan (Premium)
+
+#### 1. Overview
+The Premium Screen is a monetization and upgrade gateway for the organizer. It can be accessed manually by clicking the `[ Upgrade Now ]` button on the Manage Auction header, or it is triggered automatically by the system when an organizer hits a hard limitation (e.g., trying to add a 4th team on the Free plan). 
+
+The platform charges based on the maximum number of teams participating in a single tournament.
+
+#### 2. Screen Preview
+
+##### Desktop Layout (Modal Popup)
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│   Upgrade Your Plan                                                                 [ X ]   │
+│   ───────────────────────────────────────────────────────────────────────────────────────   │
+│                                                                                             │
+│      Choose the perfect plan for your tournament.                                           │
+│      Unlock more teams to scale your auction to the next level!                             │
+│                                                                                             │
+│      ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐                       │
+│      │                  │  │                  │  │                  │                       │
+│      │   Starter        │  │   Challenger     │  │   Pro            │                       │
+│      │   3 Teams        │  │   4 Teams        │  │   6 Teams        │                       │
+│      │                  │  │                  │  │                  │                       │
+│      │   ₹ Free         │  │   ₹ 1999         │  │   ₹ 2499         │                       │
+│      │                  │  │                  │  │                  │                       │
+│      │  [ Current ]     │  │  [ Upgrade ]     │  │  [ Upgrade ]     │                       │
+│      └──────────────────┘  └──────────────────┘  └──────────────────┘                       │
+│                                                                                             │
+│      ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐                       │
+│      │                  │  │                  │  │                  │                       │
+│      │   Elite          │  │   Master         │  │   Legend         │                       │
+│      │   8 Teams        │  │   12 Teams       │  │   16 Teams       │                       │
+│      │                  │  │                  │  │                  │                       │
+│      │   ₹ 2999         │  │   ₹ 3999         │  │   ₹ 4999         │                       │
+│      │                  │  │                  │  │                  │                       │
+│      │  [ Upgrade ]     │  │  [ Upgrade ]     │  │  [ Upgrade ]     │                       │
+│      └──────────────────┘  └──────────────────┘  └──────────────────┘                       │
+│                                                                                             │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description |
+| :--- | :--- | :--- |
+| Plan Card | UI Component | Displays the specific tier details (Teams allowed, Price). |
+| Teams Limit | Text | The max capacity (3, 4, 6, 8, 12, or 16 Teams). |
+| Pricing | Currency | The cost of the plan (Free, 1999, 2499, 2999, 3999, 4999). |
+| Upgrade Button | Button | Initiates the payment gateway process for that specific tier. |
+| Current Badge | Disabled Button | Indicates which plan the user is currently subscribed to. |
+
+#### 4. Validations
+- **Payment Verification**: Before applying a new plan, the system must receive a successful payment callback from the payment gateway.
+- **Downgrade Block**: A user cannot select or downgrade to a plan that has *fewer* teams than they have already created (e.g., if they have 5 teams created, the 3-team and 4-team plans are disabled).
+
+#### 5. Business Rules
+- **Default State**: Every new auction defaults strictly to the "3 Team - Free" plan upon creation.
+- **The Paywall Logic**: When the user navigates to the Teams tab and clicks `[ + Add Team ]`, the system evaluates the current team count. If the user is on the Free plan and already has 3 teams saved in the database, the "Add Team" action is instantly blocked. Instead of the "Add Team Form", this Premium Screen modal is forcibly shown with a message: *"Upgrade your plan to add more teams."*
+- **Per-Auction Billing**: These plans apply strictly *per-auction*, not per-organizer account. If an organizer creates a second tournament later, that new tournament starts back at the Free tier.
+- **Upgrade Flow**: Clicking `[ Upgrade ]` redirects to a secure checkout. Upon successful payment, the database updates the `team_limit` field for that specific auction, allowing the user to seamlessly resume adding their 4th team.
