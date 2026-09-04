@@ -1958,3 +1958,61 @@ The Live Auction Handling Dashboard is the core execution screen for the auction
   4. The system deducts the `Current Bid` amount from the winning team's purse, moves the player to the "Sold" pool, updates the bottom KPIs, and triggers a WebSocket event to update the YouTube overlay and public dashboards instantly.
 - **Unsold Workflow**: Clicking `[ UNSOLD ]` immediately changes the player's status to Unsold and clears the block, ready for the next player.
 - **Manual Bid Editing**: Clicking the `✏️` pencil icon next to the current bid opens a numeric keypad, allowing the auctioneer to manually type a specific jump in price (e.g., skipping from 10k to 50k instantly based on crowd shouting) rather than clicking `BID UP` multiple times.
+
+---
+
+# Screen 13: Live Web Screen (Presentation View)
+
+#### 1. Overview
+The Live Web Screen is a read-only, presentation-grade interface designed to be cast to large screens (projectors or LED walls) at physical auction venues. It acts as a mirror to the Live Auction Handling dashboard, instantly reflecting the auctioneer's actions via WebSockets to the live audience in a visually stunning, stadium-themed layout.
+
+#### 2. Screen Preview
+
+##### Desktop / Projector Layout
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ LOGO ] CricAuction               [ INDIAN PREMIER LEAGUE - 2026 ]          (Nav Links)   │
+│                                                                                             │
+│                                                                                             │
+│                         ┌───────────────────────────────────────────────┐                   │
+│                         │                Avesh Khan                     │                   │
+│          ( PHOTO )      ├───────────────────────────────────────────────┤                   │
+│            110          │                Indore, Madhya Pradesh, India  │                   │
+│                         ├───────────────────────────────────────────────┤                   │
+│                         │                Bowler                         │                   │
+│                         └───────────────────────────────────────────────┘                   │
+│                            Right-handed | Right-arm fast-medium                             │
+│                                                                                             │
+│                                                                  [ DELHI CAPITALS ]         │
+│                                                                     (Team Logo)             │
+│                                                                     🪙 2,00,000              │
+│                                                                                             │
+│                                                                                             │
+│  [ SPONSOR LOGO ]                                                    MAX BID: 89,00,000     │
+│  [ Partner      ]                                [Sold 0] [Unsold 0] [Available 228]        │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description | Mandatory |
+| :--- | :--- | :--- | :--- |
+| Tournament Header | Graphic | Event Logo and Tournament Name banner at the top center. | Yes |
+| Player Photo | Image | Circular masked image of the player with a numeric badge (e.g., 110) attached. | Yes |
+| Player Details Stack | Slanted UI Bars | Stacked yellow bars displaying Player Name, Location, and Core Category (e.g., Bowler). | Yes |
+| Player Specs | Text | Sub-specifications displayed below the main bars (e.g., Right-handed). | No |
+| Active Bidding Team | UI Block | Appears only when a bid is placed. Shows Team Name, Team Logo, and the exact Current Bid Amount. | No (Only when bid active) |
+| Max Bid Indicator | Text Box | Displays the maximum remaining purse capacity of the team currently holding the highest bid. | No (Only when bid active) |
+| Sponsor Box | Image | A dedicated box in the bottom left for monetization/partner logos. | No |
+| Status KPIs | Badges | Real-time counts of `Sold`, `Unsold`, and `Available` players (Bottom Right). | Yes |
+
+#### 4. Validations
+- **Strictly Read-Only**: The screen is entirely non-interactive. No clicks, hovers, or keyboard events should alter the data, ensuring absolute security during the presentation.
+- **Empty State**: If no player is currently on the block (before the auction starts or during breaks between players), the center player graphic is hidden and replaced by a large, idle Tournament Logo graphic.
+
+#### 5. Business Rules
+- **WebSocket Synchronization (Zero Lag)**: Every action the auctioneer makes on the "Live Auction Handling Dashboard" (Screen 12) instantly updates this screen via WebSockets. If the auctioneer clicks `BID UP`, the `🪙 2,00,000` text updates simultaneously here without the page ever refreshing.
+- **Dynamic Bidding Reveal**: When a new player is first brought to the screen, the right-side Bidding Team logo and Current Bid amount are completely hidden. They smoothly fade in or slide into view only *after* the auctioneer assigns the first bid to a team.
+- **Visual Feedback Alerts**: 
+  - When a player is marked as "SOLD", a massive "SOLD" stamp graphic or confetti animation should overlay the player profile for a few seconds before the screen clears for the next player.
+  - When a player is marked "UNSOLD", a red "UNSOLD" stamp should drop onto the screen.
