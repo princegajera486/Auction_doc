@@ -1885,3 +1885,76 @@ The platform charges based on the maximum number of teams participating in a sin
 - **The Paywall Logic**: When the user navigates to the Teams tab and clicks `[ + Add Team ]`, the system evaluates the current team count. If the user is on the Free plan and already has 3 teams saved in the database, the "Add Team" action is instantly blocked. Instead of the "Add Team Form", this Premium Screen modal is forcibly shown with a message: *"Upgrade your plan to add more teams."*
 - **Per-Auction Billing**: These plans apply strictly *per-auction*, not per-organizer account. If an organizer creates a second tournament later, that new tournament starts back at the Free tier.
 - **Upgrade Flow**: Clicking `[ Upgrade ]` redirects to a secure checkout. Upon successful payment, the database updates the `team_limit` field for that specific auction, allowing the user to seamlessly resume adding their 4th team.
+
+---
+
+# Screen 12: Live Auction Handling Dashboard
+
+#### 1. Overview
+The Live Auction Handling Dashboard is the core execution screen for the auctioneer. This page is optimized as a full-screen desktop web view, providing the auctioneer with a comprehensive master-control center. It displays the current player details alongside a wide grid of all participating teams, with prominent bidding controls to ensure smooth, rapid-fire auction pacing.
+
+#### 2. Screen Preview
+
+##### Desktop Web Layout
+```text
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ AUCTION LOGO ]    Dashboard    Auctions         [🔍 Search...]       [🔔]  (Profile ▼)   │
+├─────────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                             │
+│  ← Back to Dashboard                  🔴 LIVE AUCTION: Indian Premier League - 2026         │
+│                                                                                             │
+│  ┌───────────────────────────────┐ ┌─────────────────────────────────────────────────────┐  │
+│  │  CURRENT PLAYER               │ │  TEAMS BOARD                                        │  │
+│  │                               │ │                                                     │  │
+│  │      ( PHOTO )                │ │  ┌──────────────────┐ ┌──────────────────┐          │  │
+│  │                               │ │  │ Chennai Super    │ │ Delhi Capitals   │          │  │
+│  │   141 | Jasprit Bumrah        │ │  │ 🪙 1/1 Cr        │ │ 🪙 1/1 Cr        │          │  │
+│  │   Category: D                 │ │  │ 🪙 89 Lakh (Max) │ │ 🪙 89 Lakh (Max) │          │  │
+│  │                               │ │  └──────────────────┘ └──────────────────┘          │  │
+│  │   [ Right-handed ]            │ │  ┌──────────────────┐ ┌──────────────────┐          │  │
+│  │   [ Bowler       ]            │ │  │ Gujarat Titans   │ │ Kolkata Knight   │          │  │
+│  │                               │ │  │ 🪙 1/1 Cr        │ │ 🪙 1/1 Cr        │          │  │
+│  │ ───────────────────────────── │ │  │ 🪙 89 Lakh (Max) │ │ 🪙 89 Lakh (Max) │          │  │
+│  │  NEW PLAYER ⚙️                │ │  └──────────────────┘ └──────────────────┘          │  │
+│  │  [ 🎲 RANDOM ]  [ 👤 MANUAL ] │ │  ┌──────────────────┐ ┌──────────────────┐          │  │
+│  │                               │ │  │ Mumbai Indians   │ │ Punjab Kings     │          │  │
+│  │ ───────────────────────────── │ │  │ 🪙 1/1 Cr        │ │ 🪙 1/1 Cr        │          │  │
+│  │  AUCTION STATUS               │ │  │ 🪙 89 Lakh (Max) │ │ 🪙 89 Lakh (Max) │          │  │
+│  │  Sold: 0      Available: 228  │ │  └──────────────────┘ └──────────────────┘          │  │
+│  │  Unsold: 0    Teams: 10       │ │                                                     │  │
+│  └───────────────────────────────┘ └─────────────────────────────────────────────────────┘  │
+│                                    ┌─────────────────────────────────────────────────────┐  │
+│                                    │  CURRENT BID:  🪙 10000 ✏️                          │  │
+│                                    │                                                     │  │
+│                                    │  [ ↑ BID UP ] [ ↓ DOWN ]      [ SOLD ] [ UNSOLD ]   │  │
+│                                    └─────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 3. Fields Table
+
+| Element Name | Type | Description | Mandatory |
+| :--- | :--- | :--- | :--- |
+| Player Info | UI Block | Displays Photo, Category (e.g., 'D'), No., Name, and Specializations. | Yes |
+| Current Bid | Currency | The active bid amount. Features a manual edit (pencil) icon to type a custom bid. | Yes |
+| Team Grid | Grid Cards | Scrollable list of team boxes showing Team Name, Total Purse remaining, and Max Bid capacity. | Yes |
+| RANDOM | Button | Automatically pulls a random player from the 'Available' pool to the block. | Yes |
+| MANUAL | Button | Opens a text box allowing the auctioneer to type a specific player number to bring them to the block. | Yes |
+| BID UP / DOWN | Buttons | Increments or decrements the Current Bid amount based on preset multiplier tiers. | Yes |
+| SOLD | Button | Finalizes the sale to the currently selected team. | Yes |
+| UNSOLD | Button | Marks the player as unsold and removes them from the block. | Yes |
+| Bottom KPIs | Footer Stats | Real-time counts of `Sold`, `Unsold`, `Available` players, and total `Teams`. | Yes |
+
+#### 4. Validations
+- **Max Bid Check**: When a team box is tapped to assign them the highest bid, the system validates that the `Current Bid` amount does not exceed that specific team's `Max Bid` capacity. If it does, a warning toast ("Insufficient Funds") is displayed and the bid is blocked.
+- **Manual Player Input**: If `[ MANUAL ]` is clicked and a player number is typed, the system validates that the player number exists and their status is currently `Available` (they cannot be already Sold).
+
+#### 5. Business Rules
+- **Team Assignment**: Tapping on a team's box highlights it (e.g., adding a bright border). This signifies that this team is currently holding the highest bid. 
+- **Selling Workflow**: 
+  1. Auctioneer taps `[ ↑ BID UP ]` to raise the price.
+  2. Auctioneer taps a Team Box to assign the bid.
+  3. Auctioneer clicks `[ SOLD ]`.
+  4. The system deducts the `Current Bid` amount from the winning team's purse, moves the player to the "Sold" pool, updates the bottom KPIs, and triggers a WebSocket event to update the YouTube overlay and public dashboards instantly.
+- **Unsold Workflow**: Clicking `[ UNSOLD ]` immediately changes the player's status to Unsold and clears the block, ready for the next player.
+- **Manual Bid Editing**: Clicking the `✏️` pencil icon next to the current bid opens a numeric keypad, allowing the auctioneer to manually type a specific jump in price (e.g., skipping from 10k to 50k instantly based on crowd shouting) rather than clicking `BID UP` multiple times.
